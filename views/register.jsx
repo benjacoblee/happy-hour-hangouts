@@ -14,7 +14,7 @@ class Register extends React.Component {
                                 type="text"
                                 className="form-control"
                                 name="username"
-                                placeholder="Enter username"
+                                placeholder="Username"
                                 required
                             />
                         </div>

@@ -1,3 +1,10 @@
+const Cloudinary = require("cloudinary");
+Cloudinary.config({
+  cloud_name: process.env.cloud_name,
+  api_key: process.env.api_key,
+  api_secret: process.env.api_secret
+});
+
 module.exports = db => {
   /**
    * ===========================================
@@ -6,11 +13,11 @@ module.exports = db => {
    */
 
   const showHomepage = (request, response) => {
-    response.render("index");
+    response.render("Index");
   };
 
   const showRegisterPage = (request, response) => {
-    response.render("register");
+    response.render("Register");
   };
 
   const registerUser = (request, response) => {
@@ -26,7 +33,7 @@ module.exports = db => {
   };
 
   const showLoginPage = (request, response) => {
-    response.render("login");
+    response.render("Login");
   };
 
   const loginUser = (request, response) => {
@@ -48,6 +55,21 @@ module.exports = db => {
     });
   };
 
+  const showNewBarForm = (request, response) => {
+    response.render("NewBar");
+  };
+
+  const submitNewBar = (request, response) => {
+    if (request.file !== undefined) {
+      Cloudinary.uploader.upload(request.file.path, result => {
+        const publicID = result.public_id;
+        response.send(result);
+      });
+    } else {
+      console.log(request.body);
+    }
+  };
+
   /**
    * ===========================================
    * Export controller functions as a module
@@ -58,6 +80,8 @@ module.exports = db => {
     showRegisterPage,
     registerUser,
     showLoginPage,
-    loginUser
+    loginUser,
+    showNewBarForm,
+    submitNewBar
   };
 };
