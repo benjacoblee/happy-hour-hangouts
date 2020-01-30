@@ -15,6 +15,7 @@ class Register extends React.Component {
                                 className="form-control"
                                 name="username"
                                 placeholder="Enter username"
+                                required
                             />
                         </div>
                         <div className="form-group">
@@ -24,6 +25,7 @@ class Register extends React.Component {
                                 className="form-control"
                                 name="password"
                                 placeholder="Password"
+                                required
                             />
                         </div>
                         <button type="submit" className="btn btn-primary">
