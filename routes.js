@@ -21,5 +21,6 @@ module.exports = (app, allModels) => {
   app.get("/login", hh.showLoginPage);
   app.post("/login", hh.loginUser);
   app.get("/bars/new", hh.showNewBarForm);
-  app.post("/bars", upload.single("bar-image"), hh.submitNewBar);
+  app.post("/bars", upload.single("barImage"), hh.submitNewBar);
+  app.get("/bars", hh.showAllBars);
 };

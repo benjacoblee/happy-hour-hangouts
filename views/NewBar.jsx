@@ -12,17 +12,27 @@ class NewBar extends React.Component {
               <input
                 type="text"
                 className="form-control"
-                name="bar-name"
+                name="barName"
                 required
               />
             </div>
             <div className="form-group">
               <label htmlFor="bar-location">Bar location</label>
-              <input type="text" className="form-control" name="bar-location" />
+              <input
+                type="text"
+                className="form-control"
+                name="barLocation"
+                required
+              />
             </div>
             <div className="form-group">
               <label htmlFor="bar-image">Upload image</label>
-              <input type="file" className="form-control" name="bar-image" />
+              <input
+                type="file"
+                className="form-control"
+                name="barImage"
+                required
+              />
             </div>
             <div className="row">
               <div className="form-group col-6">
@@ -30,7 +40,8 @@ class NewBar extends React.Component {
                 <input
                   type="time"
                   className="form-control"
-                  name="bar-time-from"
+                  name="happyHourFrom"
+                  required
                 />
               </div>
               <div className="form-group col-6">
@@ -38,7 +49,8 @@ class NewBar extends React.Component {
                 <input
                   type="time"
                   className="form-control"
-                  name="bar-time-to"
+                  name="happyHourTo"
+                  required
                 />
               </div>
             </div>
@@ -48,7 +60,7 @@ class NewBar extends React.Component {
               <textarea
                 className="form-control"
                 rows="3"
-                name="bar-details"
+                name="barDetails"
               ></textarea>
             </div>
             <input type="submit" className="btn btn-primary" />

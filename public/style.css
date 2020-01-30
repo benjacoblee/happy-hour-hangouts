@@ -1,23 +1,27 @@
 body {
-	background-color: #343a40;
-	color: white;
+  background-color: #343a40;
+  color: white;
 }
 
 .main-img {
-	max-width: 100%;
+  max-width: 100%;
+}
+
+.bar-img {
+  max-width: 100%;
 }
 
 #navbar-brand {
-	color: #fbf559;
+  color: #fbf559;
 }
 
 .btn-search {
-	background-color: #343a40;
-	color: #fbf559;
-	border: 1px solid #fbf559;
+  background-color: #343a40;
+  color: #fbf559;
+  border: 1px solid #fbf559;
 }
 
 .btn-search:hover {
-	background-color: #fbf559;
-	color: #343a40;
+  background-color: #fbf559;
+  color: #343a40;
 }
