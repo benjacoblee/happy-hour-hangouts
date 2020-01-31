@@ -8,10 +8,15 @@ class AllBars extends React.Component {
     const barElement = bars.map(bar => {
       const barPath = "/bars/" + bar.id;
       return (
-        <div className="col-6">
-          <a href={barPath}>
-            <img className="bar-img" src={bar.url} />
-          </a>
+        <div className="col-lg-6 mb-4">
+          <div className="bar-div">
+            <img className="bar-img rounded" src={bar.url} />
+            <a href={barPath}>
+              <p className="card-title text-center" style={{ color: "#CBCECF" }}>
+                {bar.name}
+              </p>
+            </a>
+          </div>
         </div>
       );
     });

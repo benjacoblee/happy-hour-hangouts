@@ -4,12 +4,12 @@ body {
 }
 
 p {
-    white-space: pre-line;
- }
+  white-space: pre-line;
+}
 
- p strong {
-   text-decoration: underline;
- }
+p strong {
+  text-decoration: underline;
+}
 
 .main-img {
   max-width: 100%;
@@ -17,6 +17,21 @@ p {
 
 .bar-img {
   max-width: 100%;
+}
+
+.bar-div {
+  position: relative;
+  
+}
+
+.card-title {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color:#FBF559!important;
+  text-shadow: 2px 2px 2px #636262;
+  font-size: 3rem;
 }
 
 #navbar-brand {
