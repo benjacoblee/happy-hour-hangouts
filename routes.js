@@ -25,4 +25,6 @@ module.exports = (app, allModels) => {
   app.get("/bars", happyhourhaven.showAllBars);
   app.get("/bars/:id", happyhourhaven.showBar);
   app.get("/logout", happyhourhaven.logoutUser);
+  app.get("/bars/:id/edit", happyhourhaven.showEditPage);
+  app.put("/bars/:id", upload.single("barImage"), happyhourhaven.editBar);
 };

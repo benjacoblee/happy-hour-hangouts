@@ -1,0 +1,78 @@
+const React = require("react");
+const Layout = require("./Layout");
+
+class EditBar extends React.Component {
+  render() {
+    const loggedIn = this.props.loggedIn;
+    const bar = this.props.bar;
+    const barID = bar.id;
+    const editPath = "/bars/" + barID + "?_method=put";
+    return (
+      <Layout loggedIn={loggedIn}>
+        <div className="container">
+          <form action={editPath} method="POST" encType="multipart/form-data">
+            <div className="form-group">
+              <label htmlFor="bar-name">Bar name</label>
+              <input
+                type="text"
+                className="form-control"
+                name="barName"
+                required
+              />
+            </div>
+            <div className="form-group">
+              <label htmlFor="bar-location">Bar location</label>
+              <input
+                type="text"
+                className="form-control"
+                name="barLocation"
+                required
+              />
+            </div>
+            <div className="form-group">
+              <label htmlFor="bar-image">Upload image</label>
+              <input
+                type="file"
+                className="form-control"
+                name="barImage"
+                required
+              />
+            </div>
+            <div className="row">
+              <div className="form-group col-6">
+                <label htmlFor="bar-time-from">Happy hour from:</label>
+                <input
+                  type="time"
+                  className="form-control"
+                  name="happyHourFrom"
+                  required
+                />
+              </div>
+              <div className="form-group col-6">
+                <label htmlFor="bar-time-to">Happy hour to:</label>
+                <input
+                  type="time"
+                  className="form-control"
+                  name="happyHourTo"
+                  required
+                />
+              </div>
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="bar-details">More details</label>
+              <textarea
+                className="form-control"
+                rows="3"
+                name="barDetails"
+              ></textarea>
+            </div>
+            <input type="submit" className="btn btn-primary" />
+          </form>
+        </div>
+      </Layout>
+    );
+  }
+}
+
+module.exports = EditBar;

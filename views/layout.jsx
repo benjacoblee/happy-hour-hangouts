@@ -7,16 +7,20 @@ class Layout extends React.Component {
     let loginButton;
     let logoutButton;
     if (loggedIn) {
-      addBar = "Add Bar";
+      addBar = "Add bar";
       logoutButton = (
         <a href="/logout">
-          <button class="btn btn-login">Log Out!</button>
+          <button className="btn btn-login">
+            Log out <i className="fas fa-sign-out-alt"></i>
+          </button>
         </a>
       );
     } else {
       loginButton = (
         <a href="/login">
-          <button class="btn btn-login">Log In!</button>
+          <button className="btn btn-login">
+            Log in <i className="fas fa-sign-in-alt"></i>
+          </button>
         </a>
       );
     }

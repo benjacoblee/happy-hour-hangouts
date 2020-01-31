@@ -21,7 +21,9 @@ module.exports = dbPoolInstance => {
     const saltQuery = "SELECT * from users where username = $1";
     dbPoolInstance.query(saltQuery, values, (err, result) => {
       if (err) console.log(err);
-      else {
+      else if (result.rows[0] === undefined) {
+        console.log(err, result);
+      } else {
         const SALT = result.rows[0].salt;
         const dbPassword = result.rows[0].password;
         if (sha256(SALT + password) === dbPassword) {
@@ -107,6 +109,42 @@ module.exports = dbPoolInstance => {
     });
   };
 
+  const checkIfOwner = (userID, barID, callback) => {
+    const values = [barID, userID];
+    const query = "SELECT * from bars where id = $1 AND user_id = $2";
+    dbPoolInstance.query(query, values, (err, result) => {
+      if (err) callback(err, null);
+      else if (result.rows[0] === undefined) {
+        callback(err, result.rows[0]);
+      } else {
+        callback(err, result.rows[0]);
+      }
+    });
+  };
+
+  const editBar = (data, barID, callback) => {
+    const values = [
+      data.barName,
+      data.barLocation,
+      data.happyHourFrom,
+      data.happyHourTo,
+      data.barDetails,
+      data.url,
+      barID
+    ];
+    const query = `UPDATE bars
+    SET name = $1, location = $2, from_time = $3, to_time = $4, details = $5, url = $6
+    WHERE id = $7 RETURNING *;`;
+    dbPoolInstance.query(query, values, (err, result) => {
+      if (err) console.log(err);
+      else if (result.rows[0] === undefined) {
+        callback(err, result.rows[0]);
+      } else {
+        callback(err, result.rows[0]);
+      }
+    });
+  };
+
   return {
     registerUser,
     loginUser,
@@ -114,6 +152,8 @@ module.exports = dbPoolInstance => {
     showAllBars,
     showNewBarForm,
     showBar,
-    checkIfLoggedIn
+    checkIfLoggedIn,
+    checkIfOwner,
+    editBar
   };
 };

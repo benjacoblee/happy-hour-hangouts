@@ -154,12 +154,21 @@ module.exports = db => {
   };
 
   const showBar = (request, response) => {
+    const userID = request.cookies.user_ID;
+    const loginCookies = request.cookies.logged_in;
     const barID = request.params.id;
+    let data = {};
+    db.happyhourhaven.checkIfLoggedIn(userID, loginCookies, (err, loggedIn) => {
+      if (loggedIn) {
+        data.loggedIn = loggedIn;
+      }
+    });
     db.happyhourhaven.showBar(barID, (err, result) => {
       if (result === undefined) {
         response.send("NO BAR");
       } else {
-        response.render("Bar", result);
+        data.bar = result;
+        response.render("Bar", data);
       }
     });
   };
@@ -168,6 +177,58 @@ module.exports = db => {
     response.clearCookie("user_ID");
     response.clearCookie("logged_in");
     response.redirect("/");
+  };
+
+  const showEditPage = (request, response) => {
+    const userID = request.cookies.user_ID;
+    const loginCookies = request.cookies.logged_in;
+    db.happyhourhaven.checkIfLoggedIn(userID, loginCookies, (err, loggedIn) => {
+      if (loggedIn) {
+        const barID = request.params.id;
+        db.happyhourhaven.checkIfOwner(userID, barID, (err, result) => {
+          if (result === undefined) {
+            response.send("YOU'RE NOT THE OWNER OF THIS POST"); // did not find match, not owner
+          } else {
+            console.log(result);
+            const data = {
+              bar: result,
+              loggedIn: loggedIn
+            };
+            response.render("EditBar", data);
+          }
+        });
+      } else {
+        response.send("NEED TO BE LOGGED IN TO EDIT BAR");
+      }
+    });
+  };
+
+  const editBar = (request, response) => {
+    const data = {
+      barName: request.body.barName,
+      barLocation: request.body.barLocation,
+      happyHourFrom: request.body.happyHourFrom,
+      happyHourTo: request.body.happyHourTo,
+      barDetails: request.body.barDetails
+    };
+
+    Cloudinary.uploader.upload(request.file.path, result => {
+      if (result.error) {
+        response.send("GOT ERROR"); // wrong filetype, too large
+      } else {
+        const barID = request.params.id;
+        data.url = result.url;
+        data.userID = request.cookies.user_ID;
+        db.happyhourhaven.editBar(data, barID, (err, result) => {
+          if (err) console.log(err);
+          else if (result === undefined) {
+            console.log("result undefined");
+          } else {
+            response.redirect("/bars");
+          }
+        });
+      }
+    });
   };
 
   /**
@@ -185,6 +246,8 @@ module.exports = db => {
     submitNewBar,
     showAllBars,
     showBar,
-    logoutUser
+    logoutUser,
+    showEditPage,
+    editBar
   };
 };
