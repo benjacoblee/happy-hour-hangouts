@@ -3,6 +3,14 @@ body {
   color: white;
 }
 
+p {
+    white-space: pre-line;
+ }
+
+ p strong {
+   text-decoration: underline;
+ }
+
 .main-img {
   max-width: 100%;
 }

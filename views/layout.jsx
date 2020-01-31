@@ -33,19 +33,23 @@ class Layout extends React.Component {
             content="width=device-width, initial-scale=1.0"
           />
           <meta httpEquiv="X-UA-Compatible" content="ie=edge" />
-          <title>Document</title>
+          <title>Happy Hour Haven</title>
+          <script
+            src="https://kit.fontawesome.com/b6c2f93973.js"
+            crossOrigin="anonymous"
+          ></script>
+          <link
+            rel="stylesheet"
+            href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+            integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+            crossOrigin="anonymous"
+          />
+          <link rel="stylesheet" href="/style.css" />
+          <script
+            type="text/javascript"
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBqS4JvzTk41aPzk_vA2wOgie7Q0KuaAUE&libraries=places"
+          ></script>
         </head>
-        <script
-          src="https://kit.fontawesome.com/b6c2f93973.js"
-          crossOrigin="anonymous"
-        ></script>
-        <link
-          rel="stylesheet"
-          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
-          crossOrigin="anonymous"
-        />
-        <link rel="stylesheet" href="/style.css" />
         <body>
           <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
             <a id="navbar-brand" className="navbar-brand" href="/">

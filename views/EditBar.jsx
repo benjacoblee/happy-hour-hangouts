@@ -23,6 +23,7 @@ class EditBar extends React.Component {
             <div className="form-group">
               <label htmlFor="bar-location">Bar location</label>
               <input
+                id="autocomplete"
                 type="text"
                 className="form-control"
                 name="barLocation"
@@ -70,6 +71,7 @@ class EditBar extends React.Component {
             <input type="submit" className="btn btn-primary" />
           </form>
         </div>
+        <script src="/map.js"></script>
       </Layout>
     );
   }
