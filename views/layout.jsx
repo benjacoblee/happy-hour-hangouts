@@ -6,6 +6,10 @@ class Layout extends React.Component {
     let addBar;
     let loginButton;
     let logoutButton;
+    let placesSrc =
+      "https://maps.googleapis.com/maps/api/js?key=" +
+      process.env.places_api_key +
+      "&libraries=places";
     if (loggedIn) {
       addBar = "Add bar";
       logoutButton = (
@@ -45,10 +49,7 @@ class Layout extends React.Component {
             crossOrigin="anonymous"
           />
           <link rel="stylesheet" href="/style.css" />
-          <script
-            type="text/javascript"
-            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBqS4JvzTk41aPzk_vA2wOgie7Q0KuaAUE&libraries=places"
-          ></script>
+          <script type="text/javascript" src={placesSrc}></script>
         </head>
         <body>
           <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
