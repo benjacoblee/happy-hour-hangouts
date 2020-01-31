@@ -249,6 +249,42 @@ module.exports = db => {
     });
   };
 
+  const searchDB = (request, response) => {
+    const userID = request.cookies.user_ID;
+    const loginCookies = request.cookies.logged_in;
+    const searchQuery = request.query.search;
+    db.happyhourhaven.searchDB(searchQuery, (err, bars) => {
+      let data = {};
+      if (bars !== null) {
+        data.bars = bars;
+      }
+      db.happyhourhaven.checkIfLoggedIn(
+        userID,
+        loginCookies,
+        (err, loggedIn) => {
+          if (loggedIn) {
+            data.loggedIn = loggedIn;
+            if (bars !== null) {
+              data.searchMessage = `You searched for "${searchQuery}"! Results matching search:`;
+              response.render("AllBars", data);
+            } else {
+              data.searchMessage = `You searched for "${searchQuery}"! No matches found!`;
+              response.render("AllBars", data);
+            }
+          } else {
+            if (bars !== null) {
+              data.searchMessage = `You searched for "${searchQuery}"! Results matching search:`;
+              response.render("AllBars", data);
+            } else {
+              data.searchMessage = `You searched for "${searchQuery}"! No matches found!`;
+              response.render("AllBars", data);
+            }
+          }
+        }
+      );
+    });
+  };
+
   /**
    * ===========================================
    * Export controller functions as a module
@@ -267,6 +303,7 @@ module.exports = db => {
     logoutUser,
     showEditPage,
     editBar,
-    deleteBar
+    deleteBar,
+    searchDB
   };
 };

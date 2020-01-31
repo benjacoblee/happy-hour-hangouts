@@ -156,6 +156,27 @@ module.exports = dbPoolInstance => {
     });
   };
 
+  const searchDB = (searchQuery, callback) => {
+    const matches = [];
+    let matchFound;
+    const query = "SELECT * from bars";
+    dbPoolInstance.query(query, (err, result) => {
+      for (let i = 0; i < result.rows.length; i++) {
+        if (
+          result.rows[i].name.toLowerCase().includes(searchQuery.toLowerCase())
+        ) {
+          matchFound = true;
+          matches.push(result.rows[i]);
+        }
+      }
+      if (matchFound) {
+        callback(err, matches);
+      } else {
+        callback(err, null);
+      }
+    });
+  };
+
   return {
     registerUser,
     loginUser,
@@ -166,6 +187,7 @@ module.exports = dbPoolInstance => {
     checkIfLoggedIn,
     checkIfOwner,
     editBar,
-    deleteBar
+    deleteBar,
+    searchDB
   };
 };

@@ -68,7 +68,7 @@ class NewBar extends React.Component {
             <input type="submit" className="btn btn-primary" />
           </form>
         </div>
-        <script src="/map.js"></script>
+        <script src="/places.js"></script>
       </Layout>
     );
   }

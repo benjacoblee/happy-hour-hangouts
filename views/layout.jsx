@@ -112,11 +112,12 @@ class Layout extends React.Component {
                   </div>
                 </li>
               </ul>
-              <form className="form-inline my-2 my-lg-0">
+              <form action="/search" method="GET" className="form-inline my-2 my-lg-0">
                 <input
                   className="form-control mr-sm-2"
                   type="search"
                   placeholder="Search"
+                  name="search"
                   aria-label="Search"
                 />
                 <button
