@@ -14,14 +14,15 @@ module.exports = (app, allModels) => {
    */
 
   // require the controller
-  const hhh = require("./controllers/hhh")(allModels);
-  app.get("/", hhh.showHomepage);
-  app.get("/register", hhh.showRegisterPage);
-  app.post("/register", hhh.registerUser);
-  app.get("/login", hhh.showLoginPage);
-  app.post("/login", hhh.loginUser);
-  app.get("/bars/new", hhh.showNewBarForm);
-  app.post("/bars", upload.single("barImage"), hhh.submitNewBar);
-  app.get("/bars", hhh.showAllBars);
-  app.get("/bars/:id", hhh.showBar);
+  const happyhourhaven = require("./controllers/happyhourhaven")(allModels);
+  app.get("/", happyhourhaven.showHomepage);
+  app.get("/register", happyhourhaven.showRegisterPage);
+  app.post("/register", happyhourhaven.registerUser);
+  app.get("/login", happyhourhaven.showLoginPage);
+  app.post("/login", happyhourhaven.loginUser);
+  app.get("/bars/new", happyhourhaven.showNewBarForm);
+  app.post("/bars", upload.single("barImage"), happyhourhaven.submitNewBar);
+  app.get("/bars", happyhourhaven.showAllBars);
+  app.get("/bars/:id", happyhourhaven.showBar);
+  app.get("/logout", happyhourhaven.logoutUser);
 };

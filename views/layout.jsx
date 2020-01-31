@@ -2,6 +2,24 @@ const React = require("react");
 
 class Layout extends React.Component {
   render() {
+    const loggedIn = this.props.loggedIn;
+    let addBar;
+    let loginButton;
+    let logoutButton;
+    if (loggedIn) {
+      addBar = "Add Bar";
+      logoutButton = (
+        <a href="/logout">
+          <button class="btn btn-login">Log Out!</button>
+        </a>
+      );
+    } else {
+      loginButton = (
+        <a href="/login">
+          <button class="btn btn-login">Log In!</button>
+        </a>
+      );
+    }
     return (
       <html lang="en">
         <head>
@@ -47,8 +65,13 @@ class Layout extends React.Component {
             >
               <ul className="navbar-nav mr-auto">
                 <li className="nav-item">
-                  <a className="nav-link" href="#">
-                    Link
+                  <a className="nav-link" href="/bars">
+                    Bars
+                  </a>
+                </li>
+                <li className="nav-item">
+                  <a className="nav-link" href="/bars/new">
+                    {addBar}
                   </a>
                 </li>
                 <li className="nav-item dropdown">
@@ -79,11 +102,6 @@ class Layout extends React.Component {
                     </a>
                   </div>
                 </li>
-                <li className="nav-item">
-                  <a className="nav-link disabled" href="#">
-                    Disabled
-                  </a>
-                </li>
               </ul>
               <form className="form-inline my-2 my-lg-0">
                 <input
@@ -92,10 +110,15 @@ class Layout extends React.Component {
                   placeholder="Search"
                   aria-label="Search"
                 />
-                <button className="btn btn-search my-2 my-sm-0" type="submit">
+                <button
+                  className="btn btn-search my-2 my-sm-0 mr-2"
+                  type="submit"
+                >
                   Search
                 </button>
               </form>
+              {loginButton}
+              {logoutButton}
             </div>
           </nav>
           {this.props.children}

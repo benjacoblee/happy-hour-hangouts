@@ -54,9 +54,9 @@ pool.on("error", function(err) {
  * ===================================================
  */
 
-const hhhfunctions = require("./models/hhh");
+const happyhourhavenfunctions = require("./models/happyhourhaven");
 
-const hhh = hhhfunctions(pool);
+const happyhourhaven = happyhourhavenfunctions(pool);
 
 /*
  * ===================================================
@@ -84,5 +84,5 @@ module.exports = {
      */
 
     // users: userModelsObject,
-    hhh: hhh
+    happyhourhaven
 };

@@ -67,6 +67,10 @@ module.exports = dbPoolInstance => {
   };
 
   const showNewBarForm = (userID, loginCookies, callback) => {
+    checkIfLoggedIn(userID, loginCookies, callback);
+  };
+
+  const checkIfLoggedIn = (userID, loginCookies, callback) => {
     let verified;
     const values = [userID];
     const query = "SELECT * from users where ID = $1";
@@ -96,7 +100,7 @@ module.exports = dbPoolInstance => {
       if (err) callback(err, null);
       else if (result.rows[0] === undefined) {
         callback(err, result.rows[0]); // no such bar in database
-        console.log("HIHI")
+        console.log("HIHI");
       } else {
         callback(err, result.rows[0]);
       }
@@ -109,6 +113,7 @@ module.exports = dbPoolInstance => {
     submitNewBar,
     showAllBars,
     showNewBarForm,
-    showBar
+    showBar,
+    checkIfLoggedIn
   };
 };

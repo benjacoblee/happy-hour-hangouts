@@ -3,8 +3,9 @@ const Layout = require("./Layout");
 
 class NewBar extends React.Component {
   render() {
+    const loggedIn = this.props.loggedIn;
     return (
-      <Layout>
+      <Layout loggedIn={loggedIn}>
         <div className="container">
           <form action="/bars" method="POST" encType="multipart/form-data">
             <div className="form-group">

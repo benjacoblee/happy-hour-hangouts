@@ -15,13 +15,15 @@ body {
   color: #fbf559;
 }
 
-.btn-search {
+.btn-search,
+.btn-login {
   background-color: #343a40;
   color: #fbf559;
   border: 1px solid #fbf559;
 }
 
-.btn-search:hover {
+.btn-search:hover,
+.btn-login:hover {
   background-color: #fbf559;
   color: #343a40;
 }

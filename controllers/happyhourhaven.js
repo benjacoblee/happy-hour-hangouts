@@ -13,18 +13,39 @@ module.exports = db => {
    */
 
   const showHomepage = (request, response) => {
-    response.render("Index");
+    const userID = request.cookies.user_ID;
+    const loginCookies = request.cookies.logged_in;
+
+    db.happyhourhaven.checkIfLoggedIn(userID, loginCookies, (err, loggedIn) => {
+      let data = {};
+      if (loggedIn) {
+        data.loggedIn = true;
+        response.render("Index", data);
+      } else {
+        data.loggedIn = false;
+        response.render("Index", data);
+      }
+    });
   };
 
   const showRegisterPage = (request, response) => {
-    response.render("Register");
+    const userID = request.cookies.user_ID;
+    const loginCookies = request.cookies.logged_in;
+
+    db.happyhourhaven.checkIfLoggedIn(userID, loginCookies, (err, loggedIn) => {
+      if (loggedIn) {
+        response.redirect("/");
+      } else {
+        response.render("Register");
+      }
+    });
   };
 
   const registerUser = (request, response) => {
     const username = request.body.username;
     const password = request.body.password;
 
-    db.hhh.registerUser(username, password, (err, result) => {
+    db.happyhourhaven.registerUser(username, password, (err, result) => {
       if (err) console.log(err);
       else {
         response.redirect("/");
@@ -33,13 +54,22 @@ module.exports = db => {
   };
 
   const showLoginPage = (request, response) => {
-    response.render("Login");
+    const userID = request.cookies.user_ID;
+    const loginCookies = request.cookies.logged_in;
+
+    db.happyhourhaven.checkIfLoggedIn(userID, loginCookies, (err, loggedIn) => {
+      if (loggedIn) {
+        response.redirect("/");
+      } else {
+        response.render("Login");
+      }
+    });
   };
 
   const loginUser = (request, response) => {
     const username = request.body.username;
     const password = request.body.password;
-    db.hhh.loginUser(username, password, (err, result) => {
+    db.happyhourhaven.loginUser(username, password, (err, result) => {
       // console.log(result);
       if (err) console.log(err);
       else {
@@ -56,12 +86,14 @@ module.exports = db => {
   };
 
   const showNewBarForm = (request, response) => {
+    let data = {};
     const userID = request.cookies.user_ID;
     const loginCookies = request.cookies.logged_in;
-    db.hhh.showNewBarForm(userID, loginCookies, (err, result) => {
-      if (result) {
-        response.render("NewBar");
-      } else if (!result) {
+    db.happyhourhaven.checkIfLoggedIn(userID, loginCookies, (err, loggedIn) => {
+      if (loggedIn) {
+        data.loggedIn = true;
+        response.render("NewBar", data);
+      } else {
         response.send("must be logged in to make bar!!");
       }
     });
@@ -84,7 +116,7 @@ module.exports = db => {
         console.log(result);
         data.url = result.url;
         data.userID = request.cookies.user_ID;
-        db.hhh.submitNewBar(data, (err, result) => {
+        db.happyhourhaven.submitNewBar(data, (err, result) => {
           if (err) response.send(err);
           else response.redirect("/");
         });
@@ -93,26 +125,49 @@ module.exports = db => {
   };
 
   const showAllBars = (request, response) => {
-    db.hhh.showAllBars((err, result) => {
+    const userID = request.cookies.user_ID;
+    const loginCookies = request.cookies.logged_in;
+
+    db.happyhourhaven.showAllBars((err, result) => {
       if (err) response.send(err);
       else {
-        const data = {
-          bars: result
-        };
-        response.render("AllBars", data);
+        db.happyhourhaven.checkIfLoggedIn(
+          userID,
+          loginCookies,
+          (err, loggedIn) => {
+            if (loggedIn) {
+              const data = {
+                bars: result,
+                loggedIn: loggedIn
+              };
+              response.render("AllBars", data);
+            } else {
+              const data = {
+                bars: result
+              };
+              response.render("AllBars", data);
+            }
+          }
+        );
       }
     });
   };
 
   const showBar = (request, response) => {
     const barID = request.params.id;
-    db.hhh.showBar(barID, (err, result) => {
+    db.happyhourhaven.showBar(barID, (err, result) => {
       if (result === undefined) {
         response.send("NO BAR");
       } else {
         response.render("Bar", result);
       }
     });
+  };
+
+  const logoutUser = (request, response) => {
+    response.clearCookie("user_ID");
+    response.clearCookie("logged_in");
+    response.redirect("/");
   };
 
   /**
@@ -129,6 +184,7 @@ module.exports = db => {
     showNewBarForm,
     submitNewBar,
     showAllBars,
-    showBar
+    showBar,
+    logoutUser
   };
 };

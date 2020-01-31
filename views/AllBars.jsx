@@ -3,6 +3,7 @@ const Layout = require("./Layout");
 
 class AllBars extends React.Component {
   render() {
+    const loggedIn = this.props.loggedIn;
     const bars = this.props.bars;
     const barElement = bars.map(bar => {
       const barPath = "/bars/" + bar.id;
@@ -15,7 +16,7 @@ class AllBars extends React.Component {
       );
     });
     return (
-      <Layout>
+      <Layout loggedIn={loggedIn}>
         <div className="container">
           <div className="row">{barElement}</div>
         </div>
