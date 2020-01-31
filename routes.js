@@ -28,5 +28,6 @@ module.exports = (app, allModels) => {
   app.get("/bars/:id/edit", happyhourhaven.showEditPage);
   app.put("/bars/:id", upload.single("barImage"), happyhourhaven.editBar);
   app.delete("/bars/:id", happyhourhaven.deleteBar);
-  app.get("/search", happyhourhaven.searchDB)
+  app.get("/search", happyhourhaven.searchDB),
+    app.post("/bars/:id/comment", happyhourhaven.postComment);
 };

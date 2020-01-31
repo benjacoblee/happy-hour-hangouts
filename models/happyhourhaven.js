@@ -22,7 +22,7 @@ module.exports = dbPoolInstance => {
     dbPoolInstance.query(saltQuery, values, (err, result) => {
       if (err) console.log(err);
       else if (result.rows[0] === undefined) {
-        console.log(err, result);
+        callback(err, null);
       } else {
         const SALT = result.rows[0].salt;
         const dbPassword = result.rows[0].password;
@@ -177,6 +177,38 @@ module.exports = dbPoolInstance => {
     });
   };
 
+  const postComment = (comment, userID, barID, callback) => {
+    const values = [comment, userID, barID];
+    const commentQuery = `INSERT INTO users_comments (comment, user_id, bar_id) VALUES ($1, $2, $3) returning *`;
+    dbPoolInstance.query(commentQuery, values, (err, postResult) => {
+      if (err) console.log(err);
+      else console.log(postResult);
+      const value = [barID];
+      const getAllComments = `SELECT * from users
+      INNER JOIN users_comments
+      ON (users_comments.user_id = users.id)
+      WHERE users_comments.bar_id = $1`;
+      dbPoolInstance.query(getAllComments, value, (err, result) => {
+        if (err) console.log(err);
+        callback(err, result.rows);
+      });
+    });
+  };
+
+  const getAllComments = (barID, callback) => {
+    const values = [barID];
+    const query = `SELECT * FROM users
+      INNER JOIN users_comments
+      ON (users_comments.user_id = users.id)
+      WHERE users_comments.bar_id = $1`;
+    dbPoolInstance.query(query, values, (err, result) => {
+      if (err) console.log(err);
+      else {
+        callback(err, result.rows);
+      }
+    });
+  };
+
   return {
     registerUser,
     loginUser,
@@ -188,6 +220,8 @@ module.exports = dbPoolInstance => {
     checkIfOwner,
     editBar,
     deleteBar,
-    searchDB
+    searchDB,
+    postComment,
+    getAllComments
   };
 };

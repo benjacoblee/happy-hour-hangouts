@@ -11,6 +11,11 @@ p strong {
   text-decoration: underline;
 }
 
+p span {
+  color:#fbf559;
+  font-weight: bold;
+}
+
 .main-img {
   max-width: 100%;
 }

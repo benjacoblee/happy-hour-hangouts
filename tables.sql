@@ -16,3 +16,10 @@ CREATE TABLE IF NOT EXISTS bars (
   url TEXT,
   user_id INTEGER
 );
+
+CREATE TABLE IF NOT EXISTS users_comments (
+  id SERIAL PRIMARY KEY,
+  comment TEXT,
+  user_id integer,
+  bar_id integer
+);

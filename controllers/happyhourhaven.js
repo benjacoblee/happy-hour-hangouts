@@ -78,8 +78,8 @@ module.exports = db => {
           response.cookie("user_ID", result.rows[0].id);
           response.cookie("logged_in", result.rows[0].hashedID);
           response.redirect("/");
-        } else {
-          response.send("WRONG PASSWROD");
+        } else if (result === null) {
+          response.send("WRONG USERNAME / PASSWORD");
         }
       }
     });
@@ -162,6 +162,9 @@ module.exports = db => {
       if (loggedIn) {
         data.loggedIn = loggedIn;
       }
+    });
+    db.happyhourhaven.getAllComments(barID, (err, result) => {
+      data.comments = result;
     });
     db.happyhourhaven.showBar(barID, (err, result) => {
       if (result === undefined) {
@@ -285,6 +288,29 @@ module.exports = db => {
     });
   };
 
+  const postComment = (request, response) => {
+    const userID = request.cookies.user_ID;
+    const barID = request.params.id;
+    const loginCookies = request.cookies.logged_in;
+    const comment = request.body.comment;
+    console.log(comment, barID);
+    db.happyhourhaven.checkIfLoggedIn(userID, loginCookies, (err, loggedIn) => {
+      if (loggedIn) {
+        db.happyhourhaven.postComment(
+          comment,
+          userID,
+          barID,
+          (err, comments) => {
+            if (err) response.send(err);
+            else {
+              response.redirect("/bars/" + barID);
+            }
+          }
+        );
+      }
+    });
+  };
+
   /**
    * ===========================================
    * Export controller functions as a module
@@ -304,6 +330,7 @@ module.exports = db => {
     showEditPage,
     editBar,
     deleteBar,
-    searchDB
+    searchDB,
+    postComment
   };
 };
