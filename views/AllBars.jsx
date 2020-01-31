@@ -5,13 +5,15 @@ class AllBars extends React.Component {
   render() {
     const bars = this.props.bars;
     const barElement = bars.map(bar => {
+      const barPath = "/bars/" + bar.id;
       return (
         <div className="col-6">
-          <img className="bar-img" src={bar.url} />
+          <a href={barPath}>
+            <img className="bar-img" src={bar.url} />
+          </a>
         </div>
       );
     });
-    console.log(bars);
     return (
       <Layout>
         <div className="container">

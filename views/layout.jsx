@@ -27,7 +27,7 @@ class Layout extends React.Component {
         <body>
           <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
             <a id="navbar-brand" className="navbar-brand" href="/">
-              Hops Haven <i className="fas fa-beer"></i>
+              H/H Haven <i className="fas fa-beer"></i>
             </a>
             <button
               className="navbar-toggler"

@@ -24,7 +24,7 @@ module.exports = db => {
     const username = request.body.username;
     const password = request.body.password;
 
-    db.hh.registerUser(username, password, (err, result) => {
+    db.hhh.registerUser(username, password, (err, result) => {
       if (err) console.log(err);
       else {
         response.redirect("/");
@@ -39,7 +39,7 @@ module.exports = db => {
   const loginUser = (request, response) => {
     const username = request.body.username;
     const password = request.body.password;
-    db.hh.loginUser(username, password, (err, result) => {
+    db.hhh.loginUser(username, password, (err, result) => {
       // console.log(result);
       if (err) console.log(err);
       else {
@@ -56,7 +56,15 @@ module.exports = db => {
   };
 
   const showNewBarForm = (request, response) => {
-    response.render("NewBar");
+    const userID = request.cookies.user_ID;
+    const loginCookies = request.cookies.logged_in;
+    db.hhh.showNewBarForm(userID, loginCookies, (err, result) => {
+      if (result) {
+        response.render("NewBar");
+      } else if (!result) {
+        response.send("must be logged in to make bar!!");
+      }
+    });
   };
 
   const submitNewBar = (request, response) => {
@@ -76,7 +84,7 @@ module.exports = db => {
         console.log(result);
         data.url = result.url;
         data.userID = request.cookies.user_ID;
-        db.hh.submitNewBar(data, (err, result) => {
+        db.hhh.submitNewBar(data, (err, result) => {
           if (err) response.send(err);
           else response.redirect("/");
         });
@@ -85,13 +93,24 @@ module.exports = db => {
   };
 
   const showAllBars = (request, response) => {
-    db.hh.showAllBars((err, result) => {
+    db.hhh.showAllBars((err, result) => {
       if (err) response.send(err);
       else {
         const data = {
           bars: result
         };
         response.render("AllBars", data);
+      }
+    });
+  };
+
+  const showBar = (request, response) => {
+    const barID = request.params.id;
+    db.hhh.showBar(barID, (err, result) => {
+      if (result === undefined) {
+        response.send("NO BAR");
+      } else {
+        response.render("Bar", result);
       }
     });
   };
@@ -109,6 +128,7 @@ module.exports = db => {
     loginUser,
     showNewBarForm,
     submitNewBar,
-    showAllBars
+    showAllBars,
+    showBar
   };
 };

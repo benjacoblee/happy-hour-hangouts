@@ -66,10 +66,49 @@ module.exports = dbPoolInstance => {
     });
   };
 
+  const showNewBarForm = (userID, loginCookies, callback) => {
+    let verified;
+    const values = [userID];
+    const query = "SELECT * from users where ID = $1";
+    dbPoolInstance.query(query, values, (err, result) => {
+      if (err) callback(err, null);
+      else if (result.rows[0] === undefined) {
+        callback(err, null);
+      } else {
+        const SALT = result.rows[0].salt;
+        const dbID = result.rows[0].id;
+        const hashedID = sha256(SALT + dbID);
+        if (hashedID === loginCookies) {
+          verified = true;
+          callback(err, verified);
+        } else {
+          verified = false;
+          callback(err, verified);
+        }
+      }
+    });
+  };
+
+  const showBar = (barID, callback) => {
+    const values = [barID];
+    const query = "SELECT * from bars where id = $1";
+    dbPoolInstance.query(query, values, (err, result) => {
+      if (err) callback(err, null);
+      else if (result.rows[0] === undefined) {
+        callback(err, result.rows[0]); // no such bar in database
+        console.log("HIHI")
+      } else {
+        callback(err, result.rows[0]);
+      }
+    });
+  };
+
   return {
     registerUser,
     loginUser,
     submitNewBar,
-    showAllBars
+    showAllBars,
+    showNewBarForm,
+    showBar
   };
 };

@@ -14,13 +14,14 @@ module.exports = (app, allModels) => {
    */
 
   // require the controller
-  const hh = require("./controllers/hh")(allModels);
-  app.get("/", hh.showHomepage);
-  app.get("/register", hh.showRegisterPage);
-  app.post("/register", hh.registerUser);
-  app.get("/login", hh.showLoginPage);
-  app.post("/login", hh.loginUser);
-  app.get("/bars/new", hh.showNewBarForm);
-  app.post("/bars", upload.single("barImage"), hh.submitNewBar);
-  app.get("/bars", hh.showAllBars);
+  const hhh = require("./controllers/hhh")(allModels);
+  app.get("/", hhh.showHomepage);
+  app.get("/register", hhh.showRegisterPage);
+  app.post("/register", hhh.registerUser);
+  app.get("/login", hhh.showLoginPage);
+  app.post("/login", hhh.loginUser);
+  app.get("/bars/new", hhh.showNewBarForm);
+  app.post("/bars", upload.single("barImage"), hhh.submitNewBar);
+  app.get("/bars", hhh.showAllBars);
+  app.get("/bars/:id", hhh.showBar);
 };
