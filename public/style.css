@@ -21,7 +21,6 @@ p strong {
 
 .bar-div {
   position: relative;
-  
 }
 
 .card-title {
@@ -29,9 +28,19 @@ p strong {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  color:#FBF559!important;
+  color: #fbf559 !important;
   text-shadow: 2px 2px 2px #636262;
   font-size: 3rem;
+}
+
+.map-link {
+  font-weight: bold;
+  color: #fbf559;
+  text-decoration: underline;
+}
+
+.map-link:hover {
+  color: #fbf559;
 }
 
 #navbar-brand {

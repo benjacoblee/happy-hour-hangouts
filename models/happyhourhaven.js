@@ -145,6 +145,17 @@ module.exports = dbPoolInstance => {
     });
   };
 
+  const deleteBar = (barID, callback) => {
+    const values = [barID];
+    const query = "DELETE from bars where id = $1 returning *";
+    dbPoolInstance.query(query, values, (err, result) => {
+      if (err) callback(err, null);
+      else {
+        callback(err, result);
+      }
+    });
+  };
+
   return {
     registerUser,
     loginUser,
@@ -154,6 +165,7 @@ module.exports = dbPoolInstance => {
     showBar,
     checkIfLoggedIn,
     checkIfOwner,
-    editBar
+    editBar,
+    deleteBar
   };
 };

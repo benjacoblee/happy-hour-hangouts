@@ -167,8 +167,16 @@ module.exports = db => {
       if (result === undefined) {
         response.send("NO BAR");
       } else {
-        data.bar = result;
-        response.render("Bar", data);
+        db.happyhourhaven.checkIfOwner(userID, barID, (err, isOwner) => {
+          if (isOwner === undefined) {
+            data.bar = result;
+            response.render("Bar", data);
+          } else {
+            data.bar = result;
+            data.isOwner = true;
+            response.render("Bar", data);
+          }
+        });
       }
     });
   };
@@ -185,8 +193,8 @@ module.exports = db => {
     db.happyhourhaven.checkIfLoggedIn(userID, loginCookies, (err, loggedIn) => {
       if (loggedIn) {
         const barID = request.params.id;
-        db.happyhourhaven.checkIfOwner(userID, barID, (err, result) => {
-          if (result === undefined) {
+        db.happyhourhaven.checkIfOwner(userID, barID, (err, isOwner) => {
+          if (isOwner === undefined) {
             response.send("YOU'RE NOT THE OWNER OF THIS POST"); // did not find match, not owner
           } else {
             console.log(result);
@@ -231,6 +239,16 @@ module.exports = db => {
     });
   };
 
+  const deleteBar = (request, response) => {
+    const barID = request.params.id;
+    db.happyhourhaven.deleteBar(barID, (err, result) => {
+      if (err) response.send(err);
+      else {
+        response.redirect("/bars");
+      }
+    });
+  };
+
   /**
    * ===========================================
    * Export controller functions as a module
@@ -248,6 +266,7 @@ module.exports = db => {
     showBar,
     logoutUser,
     showEditPage,
-    editBar
+    editBar,
+    deleteBar
   };
 };

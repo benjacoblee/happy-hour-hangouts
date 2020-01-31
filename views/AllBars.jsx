@@ -10,9 +10,14 @@ class AllBars extends React.Component {
       return (
         <div className="col-lg-6 mb-4">
           <div className="bar-div">
-            <img className="bar-img rounded" src={bar.url} />
             <a href={barPath}>
-              <p className="card-title text-center" style={{ color: "#CBCECF" }}>
+              <img className="bar-img rounded" src={bar.url} />
+            </a>
+            <a href={barPath}>
+              <p
+                className="card-title text-center"
+                style={{ color: "#CBCECF" }}
+              >
                 {bar.name}
               </p>
             </a>
