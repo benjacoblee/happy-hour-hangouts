@@ -59,7 +59,16 @@ class EditBar extends React.Component {
                 />
               </div>
             </div>
-
+            <div className="form-group">
+              <label htmlFor="bar-name">Days</label>
+              <input
+                type="text"
+                className="form-control"
+                name="happyHourDays"
+                placeholder="E.g. on Monday to Friday, everyday"
+                required
+              />
+            </div>
             <div className="form-group">
               <label htmlFor="bar-details">More details</label>
               <textarea

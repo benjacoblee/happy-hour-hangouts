@@ -105,9 +105,10 @@ module.exports = db => {
       barLocation: request.body.barLocation,
       happyHourFrom: request.body.happyHourFrom,
       happyHourTo: request.body.happyHourTo,
+      happyHourDays: request.body.happyHourDays,
       barDetails: request.body.barDetails
     };
-
+    console.log(data);
     Cloudinary.uploader.upload(request.file.path, result => {
       console.log(result);
       if (result.error) {
@@ -200,9 +201,8 @@ module.exports = db => {
           if (isOwner === undefined) {
             response.send("YOU'RE NOT THE OWNER OF THIS POST"); // did not find match, not owner
           } else {
-            console.log(result);
             const data = {
-              bar: result,
+              bar: isOwner,
               loggedIn: loggedIn
             };
             response.render("EditBar", data);
@@ -220,6 +220,7 @@ module.exports = db => {
       barLocation: request.body.barLocation,
       happyHourFrom: request.body.happyHourFrom,
       happyHourTo: request.body.happyHourTo,
+      happyHourDays: request.body.happyHourDays,
       barDetails: request.body.barDetails
     };
 
@@ -293,7 +294,7 @@ module.exports = db => {
     const barID = request.params.id;
     const loginCookies = request.cookies.logged_in;
     const comment = request.body.comment;
-    
+
     db.happyhourhaven.checkIfLoggedIn(userID, loginCookies, (err, loggedIn) => {
       if (loggedIn) {
         db.happyhourhaven.postComment(
@@ -308,7 +309,7 @@ module.exports = db => {
           }
         );
       } else {
-        response.send("PLEASE LOGING OT COMMENT")
+        response.send("PLEASE LOGING OT COMMENT");
       }
     });
   };

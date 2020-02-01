@@ -46,12 +46,13 @@ module.exports = dbPoolInstance => {
       data.barLocation,
       data.happyHourFrom,
       data.happyHourTo,
+      data.happyHourDays,
       data.barDetails,
       data.url,
       data.userID
     ];
 
-    const query = `INSERT INTO bars (name, location, from_time, to_time, details, url, user_id) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *`;
+    const query = `INSERT INTO bars (name, location, from_time, to_time, days, details, url, user_id) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *`;
     dbPoolInstance.query(query, values, (err, result) => {
       if (err) callback(err, null);
       else {
@@ -130,13 +131,14 @@ module.exports = dbPoolInstance => {
       data.barLocation,
       data.happyHourFrom,
       data.happyHourTo,
+      data.happyHourDays,
       data.barDetails,
       data.url,
       barID
     ];
     const query = `UPDATE bars
-    SET name = $1, location = $2, from_time = $3, to_time = $4, details = $5, url = $6
-    WHERE id = $7 RETURNING *;`;
+    SET name = $1, location = $2, from_time = $3, to_time = $4, days = $5, details = $6, url = $7
+    WHERE id = $8 RETURNING *;`;
     dbPoolInstance.query(query, values, (err, result) => {
       if (err) console.log(err);
       else if (result.rows[0] === undefined) {

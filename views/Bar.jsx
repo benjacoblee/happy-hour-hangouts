@@ -5,7 +5,7 @@ moment().format();
 
 class Bar extends React.Component {
   render() {
-    console.log(this.props.comments);
+    console.log(this.props);
     let commentElement;
     const commentData = this.props.comments;
     if (commentData !== undefined) {
@@ -54,7 +54,7 @@ class Bar extends React.Component {
               </a>
             </p>
             <p>
-              <strong>Happy hour from:</strong> {bar.from_time} - {bar.to_time}
+              <strong>Happy hour from:</strong> {bar.from_time} - {bar.to_time} {bar.days}
             </p>
             <p>
               <strong>Details:</strong>
