@@ -6,6 +6,7 @@ class Layout extends React.Component {
     let addBar;
     let loginButton;
     let logoutButton;
+    let registerButton;
     let placesSrc =
       "https://maps.googleapis.com/maps/api/js?key=" +
       process.env.places_api_key +
@@ -22,8 +23,15 @@ class Layout extends React.Component {
     } else {
       loginButton = (
         <a href="/login">
-          <button className="btn btn-login">
+          <button className="btn btn-login mr-2">
             Log in <i className="fas fa-sign-in-alt"></i>
+          </button>
+        </a>
+      );
+      registerButton = (
+        <a href="/register">
+          <button className="btn btn-login">
+            Register <i class="fas fa-user-plus"></i>
           </button>
         </a>
       );
@@ -128,6 +136,7 @@ class Layout extends React.Component {
                 </button>
               </form>
               {loginButton}
+              {registerButton}
               {logoutButton}
             </div>
           </nav>
