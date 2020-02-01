@@ -106,6 +106,7 @@ module.exports = db => {
       happyHourFrom: request.body.happyHourFrom,
       happyHourTo: request.body.happyHourTo,
       happyHourDays: request.body.happyHourDays,
+      happyHourTags: request.body.happyHourTags,
       barDetails: request.body.barDetails
     };
     console.log(data);
@@ -221,6 +222,7 @@ module.exports = db => {
       happyHourFrom: request.body.happyHourFrom,
       happyHourTo: request.body.happyHourTo,
       happyHourDays: request.body.happyHourDays,
+      happyHourTags: request.body.happyHourTags,
       barDetails: request.body.barDetails
     };
 

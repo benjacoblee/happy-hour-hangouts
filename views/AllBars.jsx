@@ -19,7 +19,7 @@ class AllBars extends React.Component {
               </a>
               <a href={barPath}>
                 <p
-                  className="card-title text-center"
+                  className="card-title text-center bar-card-title"
                   style={{ color: "#CBCECF" }}
                 >
                   {bar.name}

@@ -4,6 +4,7 @@ class Layout extends React.Component {
   render() {
     const loggedIn = this.props.loggedIn;
     let addBar;
+    let favorites;
     let loginButton;
     let logoutButton;
     let registerButton;
@@ -12,7 +13,20 @@ class Layout extends React.Component {
       process.env.places_api_key +
       "&libraries=places";
     if (loggedIn) {
-      addBar = "Add bar";
+      addBar = (
+        <li className="nav-item">
+          <a className="nav-link" href="/bars/new">
+            Add bar
+          </a>
+        </li>
+      );
+      favorites = (
+        <li className="nav-item">
+          <a className="nav-link" href="/favorites">
+            Favorites
+          </a>
+        </li>
+      );
       logoutButton = (
         <a href="/logout">
           <button className="btn btn-login">
@@ -31,7 +45,7 @@ class Layout extends React.Component {
       registerButton = (
         <a href="/register">
           <button className="btn btn-login">
-            Register <i class="fas fa-user-plus"></i>
+            Register <i className="fas fa-user-plus"></i>
           </button>
         </a>
       );
@@ -86,11 +100,8 @@ class Layout extends React.Component {
                     Bars
                   </a>
                 </li>
-                <li className="nav-item">
-                  <a className="nav-link" href="/bars/new">
-                    {addBar}
-                  </a>
-                </li>
+                {addBar}
+                {favorites}
                 <li className="nav-item dropdown">
                   <a
                     className="nav-link dropdown-toggle"
@@ -120,7 +131,11 @@ class Layout extends React.Component {
                   </div>
                 </li>
               </ul>
-              <form action="/search" method="GET" className="form-inline my-2 my-lg-0">
+              <form
+                action="/search"
+                method="GET"
+                className="form-inline my-2 my-lg-0"
+              >
                 <input
                   className="form-control mr-sm-2"
                   type="search"
@@ -156,6 +171,7 @@ class Layout extends React.Component {
             integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
             crossOrigin="anonymous"
           ></script>
+          <script async defer src=""></script>
         </body>
       </html>
     );

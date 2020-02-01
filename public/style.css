@@ -13,7 +13,7 @@ p strong {
 
 p span {
   color: #fbf559;
-  font-weight: bold;
+  font-weight: lighter;
 }
 
 .main-img {
@@ -24,7 +24,7 @@ p span {
   max-width: 100%;
 }
 
-.bar-title {
+.bar-title, .fas {
   color: #fbf559;
 }
 
@@ -32,7 +32,11 @@ p span {
   position: relative;
 }
 
-.card-title {
+.site-desc {
+  font-weight: lighter;
+}
+
+.bar-card-title {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -44,7 +48,7 @@ p span {
 
 .map-link {
   font-weight: bold;
-  color: #fbf559;
+  /* color: #fbf559; */
   text-decoration: underline;
 }
 

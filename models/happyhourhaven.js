@@ -47,12 +47,13 @@ module.exports = dbPoolInstance => {
       data.happyHourFrom,
       data.happyHourTo,
       data.happyHourDays,
+      data.happyHourTags,
       data.barDetails,
       data.url,
       data.userID
     ];
 
-    const query = `INSERT INTO bars (name, location, from_time, to_time, days, details, url, user_id) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *`;
+    const query = `INSERT INTO bars (name, location, from_time, to_time, days, tags, details, url, user_id) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING *`;
     dbPoolInstance.query(query, values, (err, result) => {
       if (err) callback(err, null);
       else {
@@ -105,7 +106,6 @@ module.exports = dbPoolInstance => {
       if (err) callback(err, null);
       else if (result.rows[0] === undefined) {
         callback(err, result.rows[0]); // no such bar in database
-        console.log("HIHI");
       } else {
         callback(err, result.rows[0]);
       }
@@ -132,13 +132,14 @@ module.exports = dbPoolInstance => {
       data.happyHourFrom,
       data.happyHourTo,
       data.happyHourDays,
+      data.happyHourTags,
       data.barDetails,
       data.url,
       barID
     ];
     const query = `UPDATE bars
-    SET name = $1, location = $2, from_time = $3, to_time = $4, days = $5, details = $6, url = $7
-    WHERE id = $8 RETURNING *;`;
+    SET name = $1, location = $2, from_time = $3, to_time = $4, days = $5, tags = $6, details = $7, url = $8
+    WHERE id = $9 RETURNING *;`;
     dbPoolInstance.query(query, values, (err, result) => {
       if (err) console.log(err);
       else if (result.rows[0] === undefined) {
@@ -167,7 +168,10 @@ module.exports = dbPoolInstance => {
     dbPoolInstance.query(query, (err, result) => {
       for (let i = 0; i < result.rows.length; i++) {
         if (
-          result.rows[i].name.toLowerCase().includes(searchQuery.toLowerCase())
+          result.rows[i].name
+            .toLowerCase()
+            .includes(searchQuery.toLowerCase()) ||
+          result.rows[i].tags.toLowerCase().includes(searchQuery.toLowerCase())
         ) {
           matchFound = true;
           matches.push(result.rows[i]);

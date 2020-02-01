@@ -5,8 +5,9 @@ moment().format();
 
 class Bar extends React.Component {
   render() {
-    console.log(this.props);
+    let commentForm;
     let commentElement;
+
     const commentData = this.props.comments;
     if (commentData !== undefined) {
       commentElement = commentData.map(comment => {
@@ -41,10 +42,34 @@ class Bar extends React.Component {
         </form>
       );
     }
+    if (loggedIn) {
+      commentForm = (
+        <div className="mb-2">
+          <p>
+            <strong>Post a comment:</strong>
+          </p>
+          <form action={commentPath} method="POST">
+            <div className="form-group">
+              <textarea
+                className="form-control"
+                rows="3"
+                name="comment"
+                required
+              ></textarea>
+            </div>
+            <input className="btn btn-primary" type="submit" />
+          </form>
+        </div>
+      );
+    }
     return (
       <Layout loggedIn={loggedIn}>
         <div className="container">
           <h1 className="bar-title">{bar.name}</h1>
+          {deleteButton}
+          <p>
+            Tags: <em>{bar.tags}</em>
+          </p>
           <img className="bar-img" src={bar.url}></img>
           <div className="mt-2">
             <p>
@@ -54,28 +79,15 @@ class Bar extends React.Component {
               </a>
             </p>
             <p>
-              <strong>Happy hour from:</strong> {bar.from_time} - {bar.to_time} {bar.days}
+              <strong>Happy hour from:</strong> {bar.from_time} - {bar.to_time}{" "}
+              {bar.days}
             </p>
             <p>
               <strong>Details:</strong>
               <br />
               {bar.details}
             </p>
-            {deleteButton}
-            <p>
-              <strong>Post a comment:</strong>
-              <form action={commentPath} method="POST">
-                <div className="form-group">
-                  <textarea
-                    className="form-control"
-                    rows="3"
-                    name="comment"
-                    required
-                  ></textarea>
-                </div>
-                <input className="btn btn-primary" type="submit" />
-              </form>
-            </p>
+            {commentForm}
             <p>
               <strong>Comments:</strong>
             </p>

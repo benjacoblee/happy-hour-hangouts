@@ -65,7 +65,17 @@ class EditBar extends React.Component {
                 type="text"
                 className="form-control"
                 name="happyHourDays"
-                placeholder="E.g. on Monday to Friday, everyday"
+                placeholder="E.g. on Monday to Friday"
+                required
+              />
+            </div>
+            <div className="form-group">
+              <label htmlFor="bar-tags">Tags</label>
+              <input
+                type="text"
+                className="form-control"
+                name="happyHourTags"
+                placeholder="E.g. finger food, Spanish, etc."
                 required
               />
             </div>
