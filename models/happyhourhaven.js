@@ -222,6 +222,39 @@ module.exports = dbPoolInstance => {
     });
   };
 
+  const checkFavorite = (userID, barID, callback) => {
+    const values = [userID, barID];
+    const query = "SELECT * from favorites where user_id = $1 AND bar_id = $2";
+    dbPoolInstance.query(query, values, (err, result) => {
+      if (err) console.log(err);
+      else if (result.rows[0] === undefined) {
+        callback(err, null);
+      } else {
+        callback(err, result.rows[0]);
+      }
+    });
+  };
+
+  const addFavorite = (userID, barID, callback) => {
+    const values = [userID, barID];
+    const insertQuery =
+      "INSERT into favorites (user_id, bar_id) VALUES ($1, $2) returning *";
+    dbPoolInstance.query(insertQuery, values, (err, result) => {
+      if (err) {
+        const deleteQuery =
+          "DELETE from favorites where user_id = $1 AND bar_id = $2";
+        dbPoolInstance.query(deleteQuery, values, (err, result) => {
+          if (err) callback("ERROR DELETEING", null);
+          else {
+            callback("delete", result);
+          }
+        });
+      } else {
+        callback("insert", result);
+      }
+    });
+  };
+
   return {
     registerUser,
     loginUser,
@@ -235,6 +268,8 @@ module.exports = dbPoolInstance => {
     deleteBar,
     searchDB,
     postComment,
-    getAllComments
+    getAllComments,
+    checkFavorite,
+    addFavorite
   };
 };

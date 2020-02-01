@@ -7,7 +7,7 @@ class Bar extends React.Component {
   render() {
     let commentForm;
     let commentElement;
-
+    let bookmark;
     const commentData = this.props.comments;
     if (commentData !== undefined) {
       commentElement = commentData.map(comment => {
@@ -33,7 +33,7 @@ class Bar extends React.Component {
     if (isOwner) {
       const deletePath = "/bars/" + bar.id + "?_method=delete";
       deleteButton = (
-        <form className="mb-3" action={deletePath} method="POST">
+        <form className="mt-3 mb-3" action={deletePath} method="POST">
           <input
             className="btn btn-danger"
             type="submit"
@@ -43,6 +43,7 @@ class Bar extends React.Component {
       );
     }
     if (loggedIn) {
+      bookmark = <i className="fas fa-bookmark fa-2x"></i>;
       commentForm = (
         <div className="mb-2">
           <p>
@@ -65,7 +66,8 @@ class Bar extends React.Component {
     return (
       <Layout loggedIn={loggedIn}>
         <div className="container">
-          <h1 className="bar-title">{bar.name}</h1>
+          <h1 className="bar-title d-inline mr-2">{bar.name}</h1>
+          {bookmark}
           {deleteButton}
           <p>
             Tags: <em>{bar.tags}</em>
@@ -94,6 +96,8 @@ class Bar extends React.Component {
             {commentElement}
           </div>
         </div>
+        <script src="/bookmarkBar.js"></script>
+        <script src="/checkFavorite.js"></script>
       </Layout>
     );
   }

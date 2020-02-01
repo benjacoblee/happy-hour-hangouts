@@ -23,11 +23,13 @@ module.exports = (app, allModels) => {
   app.get("/bars/new", happyhourhaven.showNewBarForm);
   app.post("/bars", upload.single("barImage"), happyhourhaven.submitNewBar);
   app.get("/bars", happyhourhaven.showAllBars);
+  app.get("/bars/favorite", happyhourhaven.addFavorite);
+  app.get("/bars/checkfavorite", happyhourhaven.checkFavorite);
   app.get("/bars/:id", happyhourhaven.showBar);
   app.get("/logout", happyhourhaven.logoutUser);
   app.get("/bars/:id/edit", happyhourhaven.showEditPage);
   app.put("/bars/:id", upload.single("barImage"), happyhourhaven.editBar);
   app.delete("/bars/:id", happyhourhaven.deleteBar);
-  app.get("/search", happyhourhaven.searchDB),
-    app.post("/bars/:id/comment", happyhourhaven.postComment);
+  app.get("/search", happyhourhaven.searchDB);
+  app.post("/bars/:id/comment", happyhourhaven.postComment);
 };

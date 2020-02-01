@@ -34,6 +34,3 @@ CREATE TABLE IF NOT EXISTS favorites (
   UNIQUE (user_id, bar_id)
 );
 
-CREATE TABLE followers (id SERIAL PRIMARY KEY,
-user_id INTEGER,
-follower_id INTEGER, UNIQUE (user_id,follower_id));

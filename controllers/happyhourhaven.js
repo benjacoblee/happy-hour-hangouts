@@ -174,9 +174,11 @@ module.exports = db => {
       } else {
         db.happyhourhaven.checkIfOwner(userID, barID, (err, isOwner) => {
           if (isOwner === undefined) {
+            response.cookie("bar_ID", barID);
             data.bar = result;
             response.render("Bar", data);
           } else {
+            response.cookie("bar_ID", barID);
             data.bar = result;
             data.isOwner = true;
             response.render("Bar", data);
@@ -316,6 +318,37 @@ module.exports = db => {
     });
   };
 
+  const checkFavorite = (request, response) => {
+    const userID = request.cookies.user_ID;
+    const barID = request.cookies.bar_ID;
+    const loginCookies = request.cookies.logged_in;
+    db.happyhourhaven.checkIfLoggedIn(userID, loginCookies, (err, result) => {
+      if (err) console.log(err);
+      else {
+        db.happyhourhaven.checkFavorite(userID, barID, (err, result) => {
+          response.send(result);
+        });
+      }
+    });
+    // db.happyhourhaven.checkFavorite;
+  };
+
+  const addFavorite = (request, response) => {
+    const userID = request.cookies.user_ID;
+    const barID = request.cookies.bar_ID;
+    const loginCookies = request.cookies.logged_in;
+    db.happyhourhaven.checkIfLoggedIn(userID, loginCookies, (err, result) => {
+      if (err) console.log(err);
+      else {
+        db.happyhourhaven.addFavorite(userID, barID, (err, result) => {
+          console.log(err, result);
+          response.send(result);
+          // response.send(result);
+        });
+      }
+    });
+  };
+
   /**
    * ===========================================
    * Export controller functions as a module
@@ -336,6 +369,8 @@ module.exports = db => {
     editBar,
     deleteBar,
     searchDB,
-    postComment
+    postComment,
+    checkFavorite,
+    addFavorite
   };
 };
