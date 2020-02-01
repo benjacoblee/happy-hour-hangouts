@@ -1,5 +1,7 @@
 const sha256 = require("js-sha256");
 const rand = require("csprng");
+const moment = require("moment");
+moment().format();
 
 module.exports = dbPoolInstance => {
   const registerUser = (username, password, callback) => {
@@ -178,8 +180,13 @@ module.exports = dbPoolInstance => {
   };
 
   const postComment = (comment, userID, barID, callback) => {
-    const values = [comment, userID, barID];
-    const commentQuery = `INSERT INTO users_comments (comment, user_id, bar_id) VALUES ($1, $2, $3) returning *`;
+    const values = [
+      comment,
+      moment().format("YYYY-MM-DD HH:mm:ss"),
+      userID,
+      barID
+    ];
+    const commentQuery = `INSERT INTO users_comments (comment, date, user_id, bar_id) VALUES ($1, $2, $3, $4) returning *`;
     dbPoolInstance.query(commentQuery, values, (err, postResult) => {
       if (err) console.log(err);
       else console.log(postResult);

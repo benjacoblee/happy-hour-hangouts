@@ -293,7 +293,7 @@ module.exports = db => {
     const barID = request.params.id;
     const loginCookies = request.cookies.logged_in;
     const comment = request.body.comment;
-    console.log(comment, barID);
+    
     db.happyhourhaven.checkIfLoggedIn(userID, loginCookies, (err, loggedIn) => {
       if (loggedIn) {
         db.happyhourhaven.postComment(
@@ -307,6 +307,8 @@ module.exports = db => {
             }
           }
         );
+      } else {
+        response.send("PLEASE LOGING OT COMMENT")
       }
     });
   };

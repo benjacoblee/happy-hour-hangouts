@@ -1,16 +1,20 @@
 const React = require("react");
 const Layout = require("./Layout");
+const moment = require("moment");
+moment().format();
 
 class Bar extends React.Component {
   render() {
+    console.log(this.props.comments);
     let commentElement;
     const commentData = this.props.comments;
     if (commentData !== undefined) {
       commentElement = commentData.map(comment => {
+        const formattedDate = moment(comment.date).format("h:mm a, MMM Do YY");
         return (
           <div>
             <p>
-              <span>{comment.username}</span> commented:
+              <span>{comment.username}</span> {formattedDate}
             </p>
             <p>{comment.comment}</p>
           </div>
@@ -40,7 +44,7 @@ class Bar extends React.Component {
     return (
       <Layout loggedIn={loggedIn}>
         <div className="container">
-          <h1>{bar.name}</h1>
+          <h1 className="bar-title">{bar.name}</h1>
           <img className="bar-img" src={bar.url}></img>
           <div className="mt-2">
             <p>
