@@ -95,12 +95,12 @@ class Layout extends React.Component {
               id="navbarSupportedContent"
             >
               <ul className="navbar-nav mr-auto">
+                {addBar}
                 <li className="nav-item">
                   <a className="nav-link" href="/bars">
                     Bars
                   </a>
                 </li>
-                {addBar}
                 {favorites}
                 <li className="nav-item dropdown">
                   <a

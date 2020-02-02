@@ -8,8 +8,14 @@ class Bar extends React.Component {
     let commentForm;
     let commentElement;
     let bookmark;
+    let comments;
     const commentData = this.props.comments;
-    if (commentData !== undefined) {
+    if (commentData[0] !== undefined) {
+      comments = (
+        <p>
+          <strong>Comments:</strong>
+        </p>
+      );
       commentElement = commentData.map(comment => {
         const formattedDate = moment(comment.date).format("h:mm a, MMM Do YY");
         return (
@@ -35,7 +41,11 @@ class Bar extends React.Component {
       const editPath = "/bars/" + bar.id + "/edit";
       const deletePath = "/bars/" + bar.id + "?_method=delete";
       editButton = (
-        <form className="mt-3 mb-3 mr-2 d-inline" action={editPath} method="GET">
+        <form
+          className="mt-3 mb-3 mr-2 d-inline"
+          action={editPath}
+          method="GET"
+        >
           <input
             className="btn btn-warning text-light"
             type="submit"
@@ -101,13 +111,11 @@ class Bar extends React.Component {
             </p>
             <p>
               <strong>Details:</strong>
-              <br />
+
               {bar.details}
             </p>
             {commentForm}
-            <p>
-              <strong>Comments:</strong>
-            </p>
+            {comments}
             {commentElement}
           </div>
         </div>

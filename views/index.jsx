@@ -1,5 +1,6 @@
 const React = require("react");
 const Layout = require("./Layout");
+const Footer = require("./Footer")
 
 class Home extends React.Component {
   render() {
@@ -31,6 +32,7 @@ class Home extends React.Component {
             </div>
           </div>
         </div>
+        <Footer></Footer>
       </Layout>
     );
   }

@@ -25,7 +25,7 @@ p span {
 }
 
 .bar-img-sm {
-  filter: brightness(50%)
+  filter: brightness(50%);
 }
 
 .bar-title,
@@ -37,7 +37,15 @@ p span {
   position: relative;
 }
 
-.site-desc {
+footer {
+ position: absolute;
+ bottom: 0;
+ width: 100%;
+}
+
+.site-desc,
+.footer {
+  font-size: 0.7rem;
   font-weight: lighter;
 }
 
@@ -46,7 +54,7 @@ p span {
 }
 
 .error-message {
-  margin-top: 25%;
+  margin: 25% 0 24%;
   text-align: center;
   font-weight: lighter;
 }
