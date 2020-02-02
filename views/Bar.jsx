@@ -79,7 +79,7 @@ class Bar extends React.Component {
         <div className="container">
           <h1 className="bar-title d-inline mr-2">{bar.name}</h1>
           {bookmark}
-          <div>
+          <div className="mt-2 mb-2">
             {editButton}
             {deleteButton}
           </div>

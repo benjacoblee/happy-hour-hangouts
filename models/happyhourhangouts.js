@@ -50,10 +50,11 @@ module.exports = dbPoolInstance => {
       data.happyHourTags,
       data.barDetails,
       data.url,
-      data.userID
+      data.userID,
+      moment().format("YYYY-MM-DD HH:mm:ss")
     ];
 
-    const query = `INSERT INTO bars (name, location, from_time, to_time, days, tags, details, url, user_id) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING *`;
+    const query = `INSERT INTO bars (name, location, from_time, to_time, days, tags, details, url, user_id, date_created) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING *`;
     dbPoolInstance.query(query, values, (err, result) => {
       if (err) callback(err, null);
       else {
@@ -135,11 +136,12 @@ module.exports = dbPoolInstance => {
       data.happyHourTags,
       data.barDetails,
       data.url,
+      moment().format("YYYY-MM-DD HH:mm:ss"),
       barID
     ];
     const query = `UPDATE bars
-    SET name = $1, location = $2, from_time = $3, to_time = $4, days = $5, tags = $6, details = $7, url = $8
-    WHERE id = $9 RETURNING *;`;
+    SET name = $1, location = $2, from_time = $3, to_time = $4, days = $5, tags = $6, details = $7, url = $8, date_modified = $9 
+    WHERE id = $10 RETURNING *;`;
     dbPoolInstance.query(query, values, (err, result) => {
       if (err) console.log(err);
       else if (result.rows[0] === undefined) {
@@ -255,7 +257,7 @@ module.exports = dbPoolInstance => {
   };
 
   const getFavorites = (userID, callback) => {
-    const values = [userID]; // need to select AS in order to have proper pathing 
+    const values = [userID]; // need to select AS in order to have proper pathing
     const favoritesQuery = `SELECT bars.id as id, bars.url as url, bars.name as name 
     FROM bars
     INNER JOIN favorites
@@ -268,6 +270,19 @@ module.exports = dbPoolInstance => {
       } else {
         callback(err, result.rows);
       }
+    });
+  };
+
+  const sortBarsByDate = (type, callback) => {
+    let query;
+    if (type === "created") {
+      query = "SELECT * from bars order by date_created desc";
+    } else {
+      query = "SELECT * from bars order by date_modified desc";
+    }
+    dbPoolInstance.query(query, (err, dateResult) => {
+      if (err) console.log(err);
+      else callback(err, dateResult.rows);
     });
   };
 
@@ -287,6 +302,7 @@ module.exports = dbPoolInstance => {
     getAllComments,
     checkFavorite,
     addFavorite,
-    getFavorites
+    getFavorites,
+    sortBarsByDate
   };
 };

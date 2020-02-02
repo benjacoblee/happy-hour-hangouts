@@ -102,6 +102,30 @@ class Layout extends React.Component {
                 </li>
                 {addBar}
                 {favorites}
+                <li className="nav-item dropdown">
+                  <a
+                    className="nav-link dropdown-toggle"
+                    href="#"
+                    id="navbarDropdown"
+                    role="button"
+                    data-toggle="dropdown"
+                    aria-haspopup="true"
+                    aria-expanded="false"
+                  >
+                    Sort
+                  </a>
+                  <div
+                    className="dropdown-menu"
+                    aria-labelledby="navbarDropdown"
+                  >
+                    <a className="dropdown-item" href="/bars/sort/created">
+                      Newly created
+                    </a>
+                    <a className="dropdown-item" href="/bars/sort/modified">
+                      Newly modified
+                    </a>
+                  </div>
+                </li>
               </ul>
               <form
                 action="/search"

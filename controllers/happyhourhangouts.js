@@ -485,6 +485,35 @@ module.exports = db => {
     );
   };
 
+  const sortBarsByDate = (request, response) => {
+    const userID = request.cookies.user_ID;
+    const loginCookies = request.cookies.logged_in;
+    const type = request.params.type;
+    db.happyhourhangouts.sortBarsByDate(type, (err, dateResult) => {
+      if (err) response.send(err);
+      else {
+        db.happyhourhangouts.checkIfLoggedIn(
+          userID,
+          loginCookies,
+          (err, loggedIn) => {
+            if (loggedIn) {
+              const data = {
+                bars: dateResult,
+                loggedIn: loggedIn
+              };
+              response.render("AllBars", data);
+            } else {
+              const data = {
+                bars: dateResult
+              };
+              response.render("AllBars", data);
+            }
+          }
+        );
+      }
+    });
+  };
+
   /**
    * ===========================================
    * Export controller functions as a module
@@ -509,6 +538,7 @@ module.exports = db => {
     checkFavorite,
     addFavorite,
     showFavorites,
-    showNoPageError
+    showNoPageError,
+    sortBarsByDate
   };
 };

@@ -16,7 +16,9 @@ CREATE TABLE IF NOT EXISTS bars (
   tags TEXT,
   details TEXT,
   url TEXT,
-  user_id INTEGER
+  user_id INTEGER,
+  date_created timestamptz,
+  date_modified timestamptz
 );
 
 CREATE TABLE IF NOT EXISTS users_comments (
