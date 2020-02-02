@@ -1,4 +1,4 @@
-# Happy Hour Haven
+# Happy Hour Hangouts
 
 ## Technologies
 - Javascript
@@ -10,6 +10,11 @@
 - Google Places API
 - Cloudinary API
 - AJAX
+
+## User stories
+    As a [bar-goer], I'd like [the ability to see happy hour offers] so that I can [make informed choices]
+    As a [bar-goer], I'd want to [contribute information] in order to [benefit other bar-goers]
+    As a [bar-goer], I'd like to [save happy hour hangouts] to [revisit them later]
 
 ## Approach
     Started with idea generation
