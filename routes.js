@@ -23,6 +23,7 @@ module.exports = (app, allModels) => {
   app.get("/bars/new", happyhourhaven.showNewBarForm);
   app.post("/bars", upload.single("barImage"), happyhourhaven.submitNewBar);
   app.get("/bars", happyhourhaven.showAllBars);
+  app.get("/bars/favorites", happyhourhaven.showFavorites);
   app.get("/bars/favorite", happyhourhaven.addFavorite);
   app.get("/bars/checkfavorite", happyhourhaven.checkFavorite);
   app.get("/bars/:id", happyhourhaven.showBar);

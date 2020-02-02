@@ -343,8 +343,26 @@ module.exports = db => {
         db.happyhourhaven.addFavorite(userID, barID, (err, result) => {
           console.log(err, result);
           response.send(result);
-          // response.send(result);
         });
+      }
+    });
+  };
+
+  const showFavorites = (request, response) => {
+    const userID = request.cookies.user_ID;
+    const barID = request.cookies.bar_ID;
+    const loginCookies = request.cookies.logged_in;
+    db.happyhourhaven.checkIfLoggedIn(userID, loginCookies, (err, loggedIn) => {
+      if (loggedIn) {
+        db.happyhourhaven.getFavorites(userID, (err, result) => {
+          const data = {
+            bars: result,
+            loggedIn: loggedIn
+          };
+          response.render("AllBars", data);
+        });
+      } else {
+        response.send("LOGIN TO VIEW FAVES")
       }
     });
   };
@@ -371,6 +389,7 @@ module.exports = db => {
     searchDB,
     postComment,
     checkFavorite,
-    addFavorite
+    addFavorite,
+    showFavorites
   };
 };

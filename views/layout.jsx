@@ -22,7 +22,7 @@ class Layout extends React.Component {
       );
       favorites = (
         <li className="nav-item">
-          <a className="nav-link" href="/favorites">
+          <a className="nav-link" href="/bars/favorites">
             Favorites
           </a>
         </li>

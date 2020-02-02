@@ -1,7 +1,6 @@
 const bookmarkIcon = document.querySelector(".fa-bookmark");
 
 const checkIfBookmarked = function() {
-  console.log(this.responseText);
   if (this.responseText === "") {
     bookmarkIcon.style.color = "white";
   } else {

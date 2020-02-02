@@ -255,6 +255,23 @@ module.exports = dbPoolInstance => {
     });
   };
 
+  const getFavorites = (userID, callback) => {
+    const values = [userID];
+    const favoritesQuery = `SELECT bars.id as id, bars.url as url, bars.name as name
+    FROM bars
+    INNER JOIN favorites
+    on (favorites.bar_id = bars.id)
+    WHERE favorites.user_id = $1`;
+    dbPoolInstance.query(favoritesQuery, values, (err, result) => {
+      if (err) console.log(err);
+      else if (result.rows[0] === undefined) {
+        callback(err, result.rows);
+      } else {
+        callback(err, result.rows);
+      }
+    });
+  };
+
   return {
     registerUser,
     loginUser,
@@ -270,6 +287,7 @@ module.exports = dbPoolInstance => {
     postComment,
     getAllComments,
     checkFavorite,
-    addFavorite
+    addFavorite,
+    getFavorites
   };
 };
