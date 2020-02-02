@@ -33,4 +33,5 @@ module.exports = (app, allModels) => {
   app.delete("/bars/:id", happyhourhaven.deleteBar);
   app.get("/search", happyhourhaven.searchDB);
   app.post("/bars/:id/comment", happyhourhaven.postComment);
+  app.get("*", happyhourhaven.showNoPageError);
 };

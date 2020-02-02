@@ -24,6 +24,7 @@ class Bar extends React.Component {
     }
 
     let deleteButton;
+    let editButton;
     let isOwner = this.props.isOwner;
     const bar = this.props.bar;
     const loggedIn = this.props.loggedIn;
@@ -31,9 +32,19 @@ class Bar extends React.Component {
     const googleMapPath =
       "https://www.google.com/maps/search/?api=1&query=" + bar.location;
     if (isOwner) {
+      const editPath = "/bars/" + bar.id + "/edit";
       const deletePath = "/bars/" + bar.id + "?_method=delete";
+      editButton = (
+        <form className="mt-3 mb-3 mr-2 d-inline" action={editPath} method="GET">
+          <input
+            className="btn btn-warning text-light"
+            type="submit"
+            value="Edit"
+          ></input>
+        </form>
+      );
       deleteButton = (
-        <form className="mt-3 mb-3" action={deletePath} method="POST">
+        <form className="mt-3 mb-3 d-inline" action={deletePath} method="POST">
           <input
             className="btn btn-danger"
             type="submit"
@@ -43,7 +54,7 @@ class Bar extends React.Component {
       );
     }
     if (loggedIn) {
-      bookmark = <i className="fas fa-bookmark fa-2x"></i>;
+      bookmark = <i className="fas fa-bookmark bookmark fa-2x"></i>;
       commentForm = (
         <div className="mb-2">
           <p>
@@ -68,7 +79,11 @@ class Bar extends React.Component {
         <div className="container">
           <h1 className="bar-title d-inline mr-2">{bar.name}</h1>
           {bookmark}
-          {deleteButton}
+          <div>
+            {editButton}
+            {deleteButton}
+          </div>
+
           <p>
             Tags: <em>{bar.tags}</em>
           </p>

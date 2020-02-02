@@ -17,13 +17,13 @@ class Home extends React.Component {
             </div>
           </div>
           <div className="container-fluid">
-            <div className="row pt-5">
-              <div className=" col-lg-6 text-center mb-5">
+            <div className="row pt-5 d-flex justify-content-around">
+              <div className=" col-lg-4 text-center mb-5">
                 <i className="fas fa-bookmark fa-5x mb-3"></i>
                 <h4 className="feature-title">Never forget.</h4>
-                <p className="site-desc">Log in and save your favorite places!</p>
+                <p className="site-desc">Log in to save a hangout for later.</p>
               </div>
-              <div className=" col-lg-6 text-center mb-5">
+              <div className=" col-lg-4 text-center mb-5">
                 <i className="fas fa-pen fa-5x mb-3"></i>
                 <h4 className="feature-title">Contribute.</h4>
                 <p className="site-desc">Register and become a contributor right away!</p>

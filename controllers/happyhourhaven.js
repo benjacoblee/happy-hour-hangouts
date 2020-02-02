@@ -46,8 +46,14 @@ module.exports = db => {
     const password = request.body.password;
 
     db.happyhourhaven.registerUser(username, password, (err, result) => {
-      if (err) console.log(err);
-      else {
+      if (err) {
+        const data = {
+          errorMessage: `Username may already be taken. Try something more unique, e.g. ${username}${Math.floor(
+            Math.random() * 999
+          )}`
+        };
+        response.render("Error", data);
+      } else {
         response.redirect("/");
       }
     });
@@ -69,17 +75,20 @@ module.exports = db => {
   const loginUser = (request, response) => {
     const username = request.body.username;
     const password = request.body.password;
-    db.happyhourhaven.loginUser(username, password, (err, result) => {
-      // console.log(result);
+
+    db.happyhourhaven.loginUser(username, password, (err, loginResult) => {
       if (err) console.log(err);
       else {
-        if (result !== null) {
-          // console.log(result.rows);
-          response.cookie("user_ID", result.rows[0].id);
-          response.cookie("logged_in", result.rows[0].hashedID);
+        if (loginResult !== null) {
+          response.cookie("user_ID", loginResult.rows[0].id);
+          response.cookie("logged_in", loginResult.rows[0].hashedID);
           response.redirect("/");
-        } else if (result === null) {
-          response.send("WRONG USERNAME / PASSWORD");
+        } else if (loginResult === null) {
+          const data = {
+            errorMessage:
+              "Something went wrong! Please check your login details and try again."
+          };
+          response.render("Error", data);
         }
       }
     });
@@ -89,17 +98,24 @@ module.exports = db => {
     let data = {};
     const userID = request.cookies.user_ID;
     const loginCookies = request.cookies.logged_in;
+
     db.happyhourhaven.checkIfLoggedIn(userID, loginCookies, (err, loggedIn) => {
       if (loggedIn) {
         data.loggedIn = true;
         response.render("NewBar", data);
       } else {
-        response.send("must be logged in to make bar!!");
+        data = {
+          errorMessage: "Please log in to create a new entry!"
+        };
+        response.render("Error", data);
       }
     });
   };
 
   const submitNewBar = (request, response) => {
+    const userID = request.cookies.user_ID;
+    const loginCookies = request.cookies.logged_in;
+
     const data = {
       barName: request.body.barName,
       barLocation: request.body.barLocation,
@@ -109,20 +125,25 @@ module.exports = db => {
       happyHourTags: request.body.happyHourTags,
       barDetails: request.body.barDetails
     };
-    console.log(data);
-    Cloudinary.uploader.upload(request.file.path, result => {
-      console.log(result);
-      if (result.error) {
-        response.send("GOT ERROR"); // wrong filetype, too large
-      } else {
-        console.log(result);
-        data.url = result.url;
-        data.userID = request.cookies.user_ID;
-        db.happyhourhaven.submitNewBar(data, (err, result) => {
-          if (err) response.send(err);
-          else response.redirect("/");
-        });
-      }
+
+    db.happyhourhaven.checkIfLoggedIn(userID, loginCookies, (err, loggedIn) => {
+      Cloudinary.uploader.upload(request.file.path, uploadResult => {
+        if (uploadResult.error) {
+          const data = {
+            errorMessage:
+              "Something went wrong during uploading. Please check your file type or file size.",
+            loggedIn: loggedIn
+          }; // wrong filetype, too large
+          response.render("Error", data);
+        } else {
+          data.url = uploadResult.url;
+          data.userID = request.cookies.user_ID;
+          db.happyhourhaven.submitNewBar(data, (err, result) => {
+            if (err) response.send(err);
+            else response.redirect("/");
+          });
+        }
+      });
     });
   };
 
@@ -130,7 +151,7 @@ module.exports = db => {
     const userID = request.cookies.user_ID;
     const loginCookies = request.cookies.logged_in;
 
-    db.happyhourhaven.showAllBars((err, result) => {
+    db.happyhourhaven.showAllBars((err, barsResult) => {
       if (err) response.send(err);
       else {
         db.happyhourhaven.checkIfLoggedIn(
@@ -139,13 +160,13 @@ module.exports = db => {
           (err, loggedIn) => {
             if (loggedIn) {
               const data = {
-                bars: result,
+                bars: barsResult,
                 loggedIn: loggedIn
               };
               response.render("AllBars", data);
             } else {
               const data = {
-                bars: result
+                bars: barsResult
               };
               response.render("AllBars", data);
             }
@@ -165,12 +186,13 @@ module.exports = db => {
         data.loggedIn = loggedIn;
       }
     });
-    db.happyhourhaven.getAllComments(barID, (err, result) => {
-      data.comments = result;
+    db.happyhourhaven.getAllComments(barID, (err, commentsResult) => {
+      data.comments = commentsResult;
     });
     db.happyhourhaven.showBar(barID, (err, result) => {
       if (result === undefined) {
-        response.send("NO BAR");
+        data.errorMessage = "Couldn't find the bar you were looking for!";
+        response.render("Error", data);
       } else {
         db.happyhourhaven.checkIfOwner(userID, barID, (err, isOwner) => {
           if (isOwner === undefined) {
@@ -202,7 +224,11 @@ module.exports = db => {
         const barID = request.params.id;
         db.happyhourhaven.checkIfOwner(userID, barID, (err, isOwner) => {
           if (isOwner === undefined) {
-            response.send("YOU'RE NOT THE OWNER OF THIS POST"); // did not find match, not owner
+            const data = {
+              errorMessage: "You can't edit this post unless you're the owner!",
+              loggedIn: loggedIn
+            };
+            response.render("Error", data); // did not find match, not owner
           } else {
             const data = {
               bar: isOwner,
@@ -212,12 +238,17 @@ module.exports = db => {
           }
         });
       } else {
-        response.send("NEED TO BE LOGGED IN TO EDIT BAR");
+        const data = {
+          errorMessage: "Need to be logged in to edit entries!"
+        };
+        response.render("Error", data);
       }
     });
   };
 
   const editBar = (request, response) => {
+    const userID = request.cookies.user_ID;
+    const loginCookies = request.cookies.logged_in;
     const data = {
       barName: request.body.barName,
       barLocation: request.body.barLocation,
@@ -227,23 +258,29 @@ module.exports = db => {
       happyHourTags: request.body.happyHourTags,
       barDetails: request.body.barDetails
     };
-
-    Cloudinary.uploader.upload(request.file.path, result => {
-      if (result.error) {
-        response.send("GOT ERROR"); // wrong filetype, too large
-      } else {
-        const barID = request.params.id;
-        data.url = result.url;
-        data.userID = request.cookies.user_ID;
-        db.happyhourhaven.editBar(data, barID, (err, result) => {
-          if (err) console.log(err);
-          else if (result === undefined) {
-            console.log("result undefined");
-          } else {
-            response.redirect("/bars");
-          }
-        });
-      }
+    db.happyhourhaven.checkIfLoggedIn(userID, loginCookies, (err, loggedIn) => {
+      Cloudinary.uploader.upload(request.file.path, uploadResult => {
+        if (uploadResult.error) {
+          const data = {
+            errorMessage:
+              "Something went wrong during uploading. Please check your file type or file size.",
+            loggedIn: loggedIn
+          }; // wrong filetype, too large
+          response.render("Error", data); // wrong filetype, too large
+        } else {
+          const barID = request.params.id;
+          data.url = uploadResult.url;
+          data.userID = request.cookies.user_ID;
+          db.happyhourhaven.editBar(data, barID, (err, editResult) => {
+            if (err) console.log(err);
+            else if (editResult === undefined) {
+              console.log("result undefined");
+            } else {
+              response.redirect("/bars");
+            }
+          });
+        }
+      });
     });
   };
 
@@ -313,7 +350,10 @@ module.exports = db => {
           }
         );
       } else {
-        response.send("PLEASE LOGING OT COMMENT");
+        const data = {
+          errorMessage: "Please log in to comment!"
+        };
+        response.render("Error", data);
       }
     });
   };
@@ -341,7 +381,6 @@ module.exports = db => {
       if (err) console.log(err);
       else {
         db.happyhourhaven.addFavorite(userID, barID, (err, result) => {
-          console.log(err, result);
           response.send(result);
         });
       }
@@ -350,19 +389,37 @@ module.exports = db => {
 
   const showFavorites = (request, response) => {
     const userID = request.cookies.user_ID;
-    const barID = request.cookies.bar_ID;
     const loginCookies = request.cookies.logged_in;
     db.happyhourhaven.checkIfLoggedIn(userID, loginCookies, (err, loggedIn) => {
       if (loggedIn) {
-        db.happyhourhaven.getFavorites(userID, (err, result) => {
+        db.happyhourhaven.getFavorites(userID, (err, favoritesResult) => {
           const data = {
-            bars: result,
+            bars: favoritesResult,
             loggedIn: loggedIn
           };
           response.render("AllBars", data);
         });
       } else {
-        response.send("LOGIN TO VIEW FAVES")
+        const data = {
+          errorMessage: "You need to be logged in to view favorites!"
+        };
+        response.render("Error", data);
+      }
+    });
+  };
+
+  const showNoPageError = (request, response) => {
+    const userID = request.cookies.user_ID;
+    const loginCookies = request.cookies.logged_in;
+    const data = {
+      errorMessage: "Couldn't find the page you were looking for!"
+    };
+    db.happyhourhaven.checkIfLoggedIn(userID, loginCookies, (err, loggedIn) => {
+      if (loggedIn) {
+        data.loggedIn = loggedIn;
+        response.render("Error", data);
+      } else {
+        response.render("Error", data);
       }
     });
   };
@@ -390,6 +447,7 @@ module.exports = db => {
     postComment,
     checkFavorite,
     addFavorite,
-    showFavorites
+    showFavorites,
+    showNoPageError
   };
 };

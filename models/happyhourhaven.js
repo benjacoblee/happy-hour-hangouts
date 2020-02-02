@@ -195,7 +195,6 @@ module.exports = dbPoolInstance => {
     const commentQuery = `INSERT INTO users_comments (comment, date, user_id, bar_id) VALUES ($1, $2, $3, $4) returning *`;
     dbPoolInstance.query(commentQuery, values, (err, postResult) => {
       if (err) console.log(err);
-      else console.log(postResult);
       const value = [barID];
       const getAllComments = `SELECT * from users
       INNER JOIN users_comments
@@ -256,8 +255,8 @@ module.exports = dbPoolInstance => {
   };
 
   const getFavorites = (userID, callback) => {
-    const values = [userID];
-    const favoritesQuery = `SELECT bars.id as id, bars.url as url, bars.name as name
+    const values = [userID]; // need to select AS in order to have proper pathing 
+    const favoritesQuery = `SELECT bars.id as id, bars.url as url, bars.name as name 
     FROM bars
     INNER JOIN favorites
     on (favorites.bar_id = bars.id)

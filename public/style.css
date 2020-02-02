@@ -24,7 +24,8 @@ p span {
   max-width: 100%;
 }
 
-.bar-title, .fas {
+.bar-title,
+.fas {
   color: #fbf559;
 }
 
@@ -36,8 +37,14 @@ p span {
   font-weight: lighter;
 }
 
-.fa-bookmark:hover{
+.bookmark:hover {
   zoom: 1.2;
+}
+
+.error-message {
+  margin-top: 25%;
+  text-align: center;
+  font-weight: lighter;
 }
 
 .bar-card-title {
