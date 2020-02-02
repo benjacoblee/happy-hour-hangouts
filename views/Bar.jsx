@@ -96,7 +96,7 @@ class Bar extends React.Component {
               </a>
             </p>
             <p>
-              <strong>Happy hour from:</strong> {bar.from_time} - {bar.to_time}{" "}
+              <strong>Happy hours:</strong> {bar.from_time} - {bar.to_time}{" "}
               {bar.days}
             </p>
             <p>

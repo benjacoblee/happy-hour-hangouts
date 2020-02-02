@@ -31,7 +31,7 @@ if (process.env.DATABASE_URL) {
     configs = {
         user: "benn",
         host: "127.0.0.1",
-        database: "happyhourhaven",
+        database: "happyhourhangouts",
         port: 5432
     };
 }
@@ -54,9 +54,9 @@ pool.on("error", function(err) {
  * ===================================================
  */
 
-const happyhourhavenfunctions = require("./models/happyhourhaven");
+const happyhourhangoutsfunctions = require("./models/happyhourhangouts");
 
-const happyhourhaven = happyhourhavenfunctions(pool);
+const happyhourhangouts = happyhourhangoutsfunctions(pool);
 
 /*
  * ===================================================
@@ -84,5 +84,5 @@ module.exports = {
      */
 
     // users: userModelsObject,
-    happyhourhaven
+    happyhourhangouts
 };

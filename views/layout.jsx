@@ -59,7 +59,7 @@ class Layout extends React.Component {
             content="width=device-width, initial-scale=1.0"
           />
           <meta httpEquiv="X-UA-Compatible" content="ie=edge" />
-          <title>Happy Hour Haven</title>
+          <title>Happy Hour Hangouts</title>
           <script
             src="https://kit.fontawesome.com/b6c2f93973.js"
             crossOrigin="anonymous"
@@ -76,7 +76,7 @@ class Layout extends React.Component {
         <body>
           <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
             <a id="navbar-brand" className="navbar-brand" href="/">
-              H/H Haven <i className="fas fa-beer"></i>
+              H/H Hangouts <i className="fas fa-beer"></i>
             </a>
             <button
               className="navbar-toggler"
