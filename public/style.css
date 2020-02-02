@@ -24,6 +24,10 @@ p span {
   max-width: 100%;
 }
 
+.bar-img-sm {
+  filter: brightness(50%)
+}
+
 .bar-title,
 .fas {
   color: #fbf559;
@@ -54,7 +58,8 @@ p span {
   transform: translate(-50%, -50%);
   color: #fbf559 !important;
   text-shadow: 2px 2px 2px #636262;
-  font-size: 3rem;
+  font-size: 2.5rem;
+  font-weight: lighter;
 }
 
 .map-link {

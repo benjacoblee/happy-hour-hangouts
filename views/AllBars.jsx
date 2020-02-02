@@ -15,7 +15,7 @@ class AllBars extends React.Component {
           <div className="col-lg-6 mb-4">
             <div className="bar-div">
               <a href={barPath}>
-                <img className="bar-img rounded" src={bar.url} />
+                <img className="bar-img bar-img-sm rounded" src={bar.url} />
               </a>
               <a href={barPath}>
                 <p
