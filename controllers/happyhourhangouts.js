@@ -23,10 +23,10 @@ module.exports = db => {
         let data = {};
         if (loggedIn) {
           data.loggedIn = true;
-          response.render("Index", data);
+          response.render("index", data);
         } else {
           data.loggedIn = false;
-          response.render("Index", data);
+          response.render("index", data);
         }
       }
     );
@@ -43,7 +43,7 @@ module.exports = db => {
         if (loggedIn) {
           response.redirect("/");
         } else {
-          response.render("Register");
+          response.render("register");
         }
       }
     );
@@ -60,7 +60,7 @@ module.exports = db => {
             Math.random() * 999
           )}`
         };
-        response.render("Error", data);
+        response.render("error", data);
       } else {
         response.redirect("/");
       }
@@ -78,7 +78,7 @@ module.exports = db => {
         if (loggedIn) {
           response.redirect("/");
         } else {
-          response.render("Login");
+          response.render("login");
         }
       }
     );
@@ -100,7 +100,7 @@ module.exports = db => {
             errorMessage:
               "Something went wrong! Please check your login details and try again."
           };
-          response.render("Error", data);
+          response.render("error", data);
         }
       }
     });
@@ -117,12 +117,12 @@ module.exports = db => {
       (err, loggedIn) => {
         if (loggedIn) {
           data.loggedIn = true;
-          response.render("NewBar", data);
+          response.render("newbar", data);
         } else {
           data = {
             errorMessage: "Please log in to create a new entry!"
           };
-          response.render("Error", data);
+          response.render("error", data);
         }
       }
     );
@@ -153,7 +153,7 @@ module.exports = db => {
                 "Something went wrong during uploading. Please check your file type or file size.",
               loggedIn: loggedIn
             }; // wrong filetype, too large
-            response.render("Error", data);
+            response.render("error", data);
           } else {
             data.url = uploadResult.url;
             data.userID = request.cookies.user_ID;
@@ -180,24 +180,24 @@ module.exports = db => {
             const data = {
               errorMessage: "No bars yet!"
             };
-            response.render("Error", data);
+            response.render("error", data);
           } else if (err && loggedIn) {
             const data = {
               errorMessage: "No bars yet!",
               loggedIn: loggedIn
             };
-            response.render("Error", data);
+            response.render("error", data);
           } else if (loggedIn) {
             const data = {
               bars: barsResult,
               loggedIn: loggedIn
             };
-            response.render("AllBars", data);
+            response.render("allbars", data);
           } else {
             const data = {
               bars: barsResult
             };
-            response.render("AllBars", data);
+            response.render("allbars", data);
           }
         });
       }
@@ -225,18 +225,18 @@ module.exports = db => {
     db.happyhourhangouts.showBar(barID, (err, result) => {
       if (result === undefined) {
         data.errorMessage = "Couldn't find the bar you were looking for!";
-        response.render("Error", data);
+        response.render("error", data);
       } else {
         db.happyhourhangouts.checkIfOwner(userID, barID, (err, isOwner) => {
           if (isOwner === undefined) {
             response.cookie("bar_ID", barID);
             data.bar = result;
-            response.render("Bar", data);
+            response.render("bar", data);
           } else {
             response.cookie("bar_ID", barID);
             data.bar = result;
             data.isOwner = true;
-            response.render("Bar", data);
+            response.render("bar", data);
           }
         });
       }
@@ -265,20 +265,20 @@ module.exports = db => {
                   "You can't edit this post unless you're the owner!",
                 loggedIn: loggedIn
               };
-              response.render("Error", data); // did not find match, not owner
+              response.render("error", data); // did not find match, not owner
             } else {
               const data = {
                 bar: isOwner,
                 loggedIn: loggedIn
               };
-              response.render("EditBar", data);
+              response.render("editbar", data);
             }
           });
         } else {
           const data = {
             errorMessage: "Need to be logged in to edit entries!"
           };
-          response.render("Error", data);
+          response.render("error", data);
         }
       }
     );
@@ -307,7 +307,7 @@ module.exports = db => {
                 "Something went wrong during uploading. Please check your file type or file size.",
               loggedIn: loggedIn
             }; // wrong filetype, too large
-            response.render("Error", data); // wrong filetype, too large
+            response.render("error", data); // wrong filetype, too large
           } else {
             const barID = request.params.id;
             data.url = uploadResult.url;
@@ -353,18 +353,18 @@ module.exports = db => {
             data.loggedIn = loggedIn;
             if (bars !== null) {
               data.searchMessage = `You searched for "${searchQuery}"! Results matching search:`;
-              response.render("AllBars", data);
+              response.render("allbars", data);
             } else {
               data.searchMessage = `You searched for "${searchQuery}"! No matches found!`;
-              response.render("AllBars", data);
+              response.render("allbars", data);
             }
           } else {
             if (bars !== null) {
               data.searchMessage = `You searched for "${searchQuery}"! Results matching search:`;
-              response.render("AllBars", data);
+              response.render("allbars", data);
             } else {
               data.searchMessage = `You searched for "${searchQuery}"! No matches found!`;
-              response.render("AllBars", data);
+              response.render("allbars", data);
             }
           }
         }
@@ -398,7 +398,7 @@ module.exports = db => {
           const data = {
             errorMessage: "Please log in to comment!"
           };
-          response.render("Error", data);
+          response.render("error", data);
         }
       }
     );
@@ -454,13 +454,13 @@ module.exports = db => {
               bars: favoritesResult,
               loggedIn: loggedIn
             };
-            response.render("AllBars", data);
+            response.render("allbars", data);
           });
         } else {
           const data = {
             errorMessage: "You need to be logged in to view favorites!"
           };
-          response.render("Error", data);
+          response.render("error", data);
         }
       }
     );
@@ -478,9 +478,9 @@ module.exports = db => {
       (err, loggedIn) => {
         if (loggedIn) {
           data.loggedIn = loggedIn;
-          response.render("Error", data);
+          response.render("error", data);
         } else {
-          response.render("Error", data);
+          response.render("error", data);
         }
       }
     );
@@ -502,12 +502,12 @@ module.exports = db => {
                 bars: dateResult,
                 loggedIn: loggedIn
               };
-              response.render("AllBars", data);
+              response.render("allbars", data);
             } else {
               const data = {
                 bars: dateResult
               };
-              response.render("AllBars", data);
+              response.render("allbars", data);
             }
           }
         );
