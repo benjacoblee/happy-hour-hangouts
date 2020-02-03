@@ -1,5 +1,5 @@
 const React = require("react");
-const Footer = require("./Footer");
+const Footer = require("./footer");
 
 class Layout extends React.Component {
   render() {
