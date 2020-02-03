@@ -1,6 +1,8 @@
 const express = require("express");
 const methodOverride = require("method-override");
 const cookieParser = require("cookie-parser");
+const multer = require("multer");
+const upload = multer({ dest: "uploads/" });
 require("dotenv").config();
 
 /**
@@ -57,7 +59,7 @@ const allModels = require("./db");
 const setRoutesFunction = require("./routes");
 
 // call it and pass in the "app" so that we can set routes on it (also models)
-setRoutesFunction(app, allModels);
+setRoutesFunction(app, allModels, upload);
 
 /**
  * ===================================

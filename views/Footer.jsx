@@ -4,13 +4,13 @@ class Footer extends React.Component {
   render() {
     return (
       <div className="mb-2 footer">
-        <p className="text-center mb-0">Made with 🖤 by Ben Jacob Lee</p>
+        <p className="text-center mb-2">Made with 🖤 by Ben Jacob Lee</p>
         <div className="text-center">
-          <a href="https://instagram.com/benjacoblee">
+          <a href="https://instagram.com/benjacoblee" target="_blank">
             <i className="fab fa-instagram mx-2 text-light"></i>
           </a>
 
-          <a href="https://github.com/benjacoblee/">
+          <a href="https://github.com/benjacoblee/" target="_blank">
             <i className="fab fa-github text-center mx-2 text-light"></i>
           </a>
 

@@ -5,7 +5,7 @@ class Register extends React.Component {
     render() {
         return (
             <Layout>
-                <div className="container">
+                <div className="container register">
                     <h1 className="text-center display-1">Register</h1>
                     <form action="/register" method="POST">
                         <div className="form-group">

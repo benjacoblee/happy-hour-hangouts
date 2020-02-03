@@ -159,7 +159,7 @@ module.exports = db => {
             data.userID = request.cookies.user_ID;
             db.happyhourhangouts.submitNewBar(data, (err, result) => {
               if (err) response.send(err);
-              else response.redirect("/");
+              else response.redirect("/bars");
             });
           }
         });
@@ -219,6 +219,7 @@ module.exports = db => {
       }
     );
     db.happyhourhangouts.getAllComments(barID, (err, commentsResult) => {
+      if (err) response.send(err);
       data.comments = commentsResult;
     });
     db.happyhourhangouts.showBar(barID, (err, result) => {
@@ -514,6 +515,8 @@ module.exports = db => {
     });
   };
 
+  const getBarsNearby = (request, response) => {};
+
   /**
    * ===========================================
    * Export controller functions as a module
@@ -539,6 +542,7 @@ module.exports = db => {
     addFavorite,
     showFavorites,
     showNoPageError,
-    sortBarsByDate
+    sortBarsByDate,
+    getBarsNearby
   };
 };

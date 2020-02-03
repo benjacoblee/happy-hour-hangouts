@@ -1,7 +1,7 @@
 var multer = require("multer");
 var upload = multer({ dest: "uploads/" });
 
-module.exports = (app, allModels) => {
+module.exports = (app, allModels, upload) => {
   /*
    *  =========================================
    *  =========================================
@@ -14,16 +14,19 @@ module.exports = (app, allModels) => {
    */
 
   // require the controller
-  const happyhourhangouts = require("./controllers/happyhourhangouts")(allModels);
+  const happyhourhangouts = require("./controllers/happyhourhangouts")(
+    allModels
+  );
   app.get("/", happyhourhangouts.showHomepage);
   app.get("/register", happyhourhangouts.showRegisterPage);
   app.post("/register", happyhourhangouts.registerUser);
   app.get("/login", happyhourhangouts.showLoginPage);
   app.post("/login", happyhourhangouts.loginUser);
+  app.get("/bars/nearby", happyhourhangouts.getBarsNearby);
   app.get("/bars/new", happyhourhangouts.showNewBarForm);
   app.post("/bars", upload.single("barImage"), happyhourhangouts.submitNewBar);
   app.get("/bars", happyhourhangouts.showAllBars);
-  app.get("/bars/sort/:type", happyhourhangouts.sortBarsByDate)
+  app.get("/bars/sort/:type", happyhourhangouts.sortBarsByDate);
   app.get("/bars/favorites", happyhourhangouts.showFavorites);
   app.get("/bars/favorite", happyhourhangouts.addFavorite);
   app.get("/bars/checkfavorite", happyhourhangouts.checkFavorite);

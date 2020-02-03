@@ -1,4 +1,5 @@
 const React = require("react");
+const Footer = require("./Footer");
 
 class Layout extends React.Component {
   render() {
@@ -126,6 +127,11 @@ class Layout extends React.Component {
                     </a>
                   </div>
                 </li>
+                <li className="nav-item">
+                  <a className="nav-link nearby" href="bars/nearby">
+                    Bars nearby
+                  </a>
+                </li>
               </ul>
               <form
                 action="/search"
@@ -152,6 +158,7 @@ class Layout extends React.Component {
             </div>
           </nav>
           {this.props.children}
+          <Footer></Footer>
           <script
             src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
             integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
@@ -168,6 +175,7 @@ class Layout extends React.Component {
             crossOrigin="anonymous"
           ></script>
           <script async defer src=""></script>
+          <script src="/nearby.js"></script>
         </body>
       </html>
     );
