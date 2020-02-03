@@ -23,10 +23,10 @@ module.exports = db => {
         let data = {};
         if (loggedIn) {
           data.loggedIn = true;
-          response.render("Index", data);
+          response.render("index", data);
         } else {
           data.loggedIn = false;
-          response.render("Index", data);
+          response.render("index", data);
         }
       }
     );
