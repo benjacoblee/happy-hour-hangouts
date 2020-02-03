@@ -127,11 +127,6 @@ class Layout extends React.Component {
                     </a>
                   </div>
                 </li>
-                <li className="nav-item">
-                  <a className="nav-link nearby" href="bars/nearby">
-                    Bars nearby
-                  </a>
-                </li>
               </ul>
               <form
                 action="/search"
@@ -174,8 +169,6 @@ class Layout extends React.Component {
             integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
             crossOrigin="anonymous"
           ></script>
-          <script async defer src=""></script>
-          <script src="/nearby.js"></script>
         </body>
       </html>
     );

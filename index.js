@@ -3,6 +3,7 @@ const methodOverride = require("method-override");
 const cookieParser = require("cookie-parser");
 const multer = require("multer");
 const upload = multer({ dest: "uploads/" });
+const cors = require("cors");
 require("dotenv").config();
 
 /**
@@ -28,6 +29,9 @@ app.use(
     extended: true
   })
 );
+
+app.use(cors());
+app.options("*", cors());
 
 // Set react-views to be the default view engine
 const reactEngine = require("express-react-views").createEngine();
