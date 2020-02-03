@@ -11,7 +11,9 @@ const bookmarkHandler = function() {
 bookmarkButton.addEventListener("click", () => {
   const bookmarkRequest = new XMLHttpRequest();
   bookmarkRequest.addEventListener("load", bookmarkHandler);
-  const favoriteURL = "http://localhost:3000/bars/favorite";
+  const favoriteURL =
+    "http://localhost:3000/bars/favorite" ||
+    "https://murmuring-thicket-55526.herokuapp.com/bars/favorite";
   bookmarkRequest.open("GET", favoriteURL);
   bookmarkRequest.send();
 });
