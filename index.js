@@ -3,7 +3,7 @@ const methodOverride = require("method-override");
 const cookieParser = require("cookie-parser");
 const multer = require("multer");
 const upload = multer({ dest: "uploads/" });
-const cors = require("cors");
+var cors = require("cors");
 require("dotenv").config();
 
 /**
