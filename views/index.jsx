@@ -27,7 +27,7 @@ class Home extends React.Component {
                 <i className="fas fa-pen fa-5x mb-3"></i>
                 <h4 className="feature-title">Contribute.</h4>
                 <p className="site-desc">
-                  Register and become a contributor right away!
+                  Register to add entries and leave comments!
                 </p>
               </div>
               <div className=" col-lg-4 text-center mb-5">

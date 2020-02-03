@@ -11,9 +11,7 @@ const bookmarkHandler = function() {
 bookmarkButton.addEventListener("click", () => {
   const bookmarkRequest = new XMLHttpRequest();
   bookmarkRequest.addEventListener("load", bookmarkHandler);
-  const favoriteURL =
-    //  "http://localhost:3000/bars/favorite"||
-    "/bars/favorite";
+  const favoriteURL = "/bars/favorite";
 
   bookmarkRequest.open("GET", favoriteURL);
   bookmarkRequest.send();
