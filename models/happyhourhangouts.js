@@ -217,7 +217,9 @@ module.exports = dbPoolInstance => {
       WHERE users_comments.bar_id = $1`;
     dbPoolInstance.query(query, values, (err, result) => {
       if (err) console.log(err);
-      else {
+      else if (result.rows[0] === undefined) {
+        callback(err, result.rows);
+      } else {
         callback(err, result.rows);
       }
     });

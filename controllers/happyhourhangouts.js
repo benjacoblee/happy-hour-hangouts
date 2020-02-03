@@ -220,7 +220,9 @@ module.exports = db => {
     );
     db.happyhourhangouts.getAllComments(barID, (err, commentsResult) => {
       if (err) response.send(err);
-      data.comments = commentsResult;
+      else {
+        data.comments = commentsResult;
+      }
     });
     db.happyhourhangouts.showBar(barID, (err, result) => {
       if (result === undefined) {

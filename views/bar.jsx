@@ -10,8 +10,7 @@ class Bar extends React.Component {
     let bookmark;
     let comments;
     const commentData = this.props.comments;
-
-    if (commentData[0] !== undefined) {
+    if (commentData.length !== 0) {
       comments = (
         <p>
           <strong>Comments:</strong>
