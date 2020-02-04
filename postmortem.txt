@@ -1,0 +1,37 @@
+Approach and Process
+
+What in my process and approach to this project would I do differently next time?
+
+- Start small.
+
+- Was dead set in using API. Entire project idea changed (due to not knowing how to use Zomato API). Could've prepared better by reading API documentation.
+
+- Commited more. 
+
+- Not change file names/database name/project name halfway through project (GITHUB DOESN'T KNOW)
+
+What in my process and approach to this project went well that I would repeat next time?
+
+- Approach the problem methodically. console.log() everything. Have an idea of what my code is gonna do, run it, confirm/deny assumption.
+
+--
+
+Code and Code Design
+What in my code and program design in the project would I do differently next time?
+- Simultaneously using custom stylesheet and bootstrap classes.
+- A lot of conditional rendering. Hard to keep track. 
+
+What in my code and program design in the project went well? Is there anything I would do the same next time?
+- Asking for help for ideas and implementation of technologies/libraries :)
+
+For each, please include code examples.
+
+What habits did I use during this unit that helped me?
+- Obsessing over problems
+
+What habits did I have during this unit that I can improve on?
+- Obsessing over problems
+
+How is the overall level of the course during this unit? 
+- Really excited to have a functioning frontend/backend app that does something meaningful in a real-life context. 
+- Gitbook is still unclear and not very helpful.
