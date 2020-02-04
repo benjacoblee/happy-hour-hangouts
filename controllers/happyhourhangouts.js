@@ -547,8 +547,10 @@ module.exports = db => {
     const loginCookies = request.cookies.logged_in;
     // console.log(request);
     let data = {};
-    let endpoint = `https://maps.googleapis.com/maps/api/place/textsearch/json?input=bars%20nearby&locationbias=point:${latitude},${longitude}&key=${process.env.places_api_key}`;
-    console.log(endpoint)
+    let endpoint = `https://maps.googleapis.com/maps/api/place/textsearch/json?query=bars&location=${latitude},${longitude}&radius=1000&key=${process.env.places_api_key}`;
+    console.log(endpoint);
+
+    // let eg = "https://maps.googleapis.com/maps/api/place/textsearch/json?query=123+main+street&location=42.3675294,-71.186966&radius=10000&key=YOUR_API_KEY"
 
     db.happyhourhangouts.checkIfLoggedIn(
       userID,
