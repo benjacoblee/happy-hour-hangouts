@@ -10,10 +10,7 @@ class BarsNearby extends React.Component {
       let openNow;
       let priceMessage;
       let priceLevel = bar.price_level;
-      if (
-        bar.opening_hours !== undefined ||
-        bar.opening_hours.open_now !== undefined
-      ) {
+      if (bar.opening_hours !== undefined) {
         openNow = " open now";
       } else {
         openNow = " closed";
