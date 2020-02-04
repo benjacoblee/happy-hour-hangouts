@@ -540,17 +540,13 @@ module.exports = db => {
   };
 
   const getBarsNearby = (request, response) => {
-    const latitude = request.query.lat;
-    const longitude = request.query.long;
-    console.log(latitude, longitude);
     const userID = request.cookies.user_ID;
     const loginCookies = request.cookies.logged_in;
+    const latitude = request.query.lat;
+    const longitude = request.query.long;
     // console.log(request);
     let data = {};
     let endpoint = `https://maps.googleapis.com/maps/api/place/textsearch/json?query=bars&location=${latitude},${longitude}&radius=1000&key=${process.env.places_api_key}`;
-    console.log(endpoint);
-
-    // let eg = "https://maps.googleapis.com/maps/api/place/textsearch/json?query=123+main+street&location=42.3675294,-71.186966&radius=10000&key=YOUR_API_KEY"
 
     db.happyhourhangouts.checkIfLoggedIn(
       userID,

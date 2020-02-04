@@ -25,12 +25,16 @@ function success(pos) {
   window.location.href = nearbyLink.href;
 }
 
+function error(err) {
+  alert("Need to access location to get bars nearby! Try clearing cookies and try again.")
+}
+
 const nearbyLink = document.querySelector("#nearby");
 nearbyLink.addEventListener("click", () => {
   let latitude = "";
   let longitude = "";
   event.preventDefault();
-  window.navigator.geolocation.getCurrentPosition(success);
+  window.navigator.geolocation.getCurrentPosition(success, error);
 });
 
 //   console.log(crd)
