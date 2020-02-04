@@ -559,14 +559,12 @@ module.exports = db => {
     axios
       .get(endpoint)
       .then(barsResponse => {
-        console.log(barsResponse.data.results[0].name, "LASLD");
         data.bars = barsResponse.data.results;
         response.render("barsnearby", data);
       })
       .catch(err => {
         console.log(err);
       });
-      
   };
 
   /**
