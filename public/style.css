@@ -58,6 +58,19 @@ p span {
   position: relative;
 }
 
+.bars-nearby-link {
+  color: #fbf559;
+  font-weight: lighter;
+}
+
+.bars-nearby-link:hover {
+  color: white;
+}
+
+.bars-nearby-open {
+  font-weight: lighter;
+}
+
 footer {
   position: absolute;
   bottom: 0;

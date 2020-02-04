@@ -5,16 +5,43 @@ class BarsNearby extends React.Component {
   render() {
     const bars = this.props.bars;
     const loggedIn = this.props.loggedIn;
-    console.log(loggedIn);
+    console.log(bars);
     const barElements = bars.map(bar => {
+      let openNow;
+      let priceMessage;
+      let priceLevel = bar.price_level;
+      if (bar.opening_hours.open_now) {
+        openNow = " open now";
+      } else {
+        openNow = " closed";
+      }
+      if (priceLevel === undefined) {
+        priceMessage = "";
+      } else {
+        priceMessage = `Price level: ${priceLevel}`;
+      }
+      console.log(bar.opening_hours.open_now);
       let googleMapPath =
         "https://www.google.com/maps/search/?api=1&query=" +
         encodeURI(bar.formatted_address);
       console.log(bar.formatted_address);
       return (
-        <a href={googleMapPath} target="_blank">
-          <p>{bar.name}</p>
-        </a>
+        <div>
+          <a className="bars-nearby-link" href={googleMapPath} target="_blank">
+            <p className="d-inline">
+              <img
+                className="mr-2"
+                src={bar.icon}
+                style={{ maxHeight: "20px" }}
+              ></img>
+              {bar.name}
+            </p>
+          </a>
+          <span class="bars-nearby-open">{openNow}</span>
+          <p>
+            Rating: {bar.rating} {priceMessage}
+          </p>
+        </div>
       );
     });
     return (

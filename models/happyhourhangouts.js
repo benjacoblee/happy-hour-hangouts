@@ -1,7 +1,10 @@
 const sha256 = require("js-sha256");
 const rand = require("csprng");
-const moment = require("moment");
-moment().format();
+const moment = require("moment-timezone");
+
+moment()
+  .tz("Asia/Singapore")
+  .format();
 
 module.exports = dbPoolInstance => {
   const registerUser = (username, password, callback) => {
