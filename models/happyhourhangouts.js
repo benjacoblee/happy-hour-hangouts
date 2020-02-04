@@ -54,7 +54,7 @@ module.exports = dbPoolInstance => {
       data.barDetails,
       data.url,
       data.userID,
-      moment().format("YYYY-MM-DD HH:mm:ss")
+      moment().tz("Asia/Singapore").format("YYYY-MM-DD HH:mm:ss")
     ];
 
     const query = `INSERT INTO bars (name, location, from_time, to_time, days, tags, details, url, user_id, date_created) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING *`;
@@ -139,7 +139,7 @@ module.exports = dbPoolInstance => {
       data.happyHourTags,
       data.barDetails,
       data.url,
-      moment().format("YYYY-MM-DD HH:mm:ss"),
+      moment().tz("Asia/Singapore").format("YYYY-MM-DD HH:mm:ss"),
       barID
     ];
     const query = `UPDATE bars
@@ -193,7 +193,7 @@ module.exports = dbPoolInstance => {
   const postComment = (comment, userID, barID, callback) => {
     const values = [
       comment,
-      moment().format("YYYY-MM-DD HH:mm:ss"),
+      moment().tz("Asia/Singapore").format("YYYY-MM-DD HH:mm:ss"),
       userID,
       barID
     ];
