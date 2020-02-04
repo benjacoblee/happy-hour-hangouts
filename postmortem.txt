@@ -35,3 +35,9 @@ What habits did I have during this unit that I can improve on?
 How is the overall level of the course during this unit? 
 - Really excited to have a functioning frontend/backend app that does something meaningful in a real-life context. 
 - Gitbook is still unclear and not very helpful.
+
+--
+
+Notes to self
+- Use Axios
+- Identify what should be split up (i.e. models, controller)

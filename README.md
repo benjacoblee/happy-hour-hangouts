@@ -39,6 +39,7 @@
     Sometimes mapping over comments in bar.jsx produces an error. Tried handling it using a conditional but doesn't seem to work. 
     Manually set timezone to Singapore using Moment Timezone library. Need to find a better way to display dates based on user location
     In the future, should find a better way to handle user experience (e.g. no indicator for upload progress, no immediate feedback after clicking on nearby bars)
+    On mobile, website seems to refresh with new lat/long. Doesn't seem to be the case with desktop
 
 ## Credits
     Kev and Nat for helping me with implementation of Google API
