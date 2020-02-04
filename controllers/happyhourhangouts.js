@@ -544,7 +544,7 @@ module.exports = db => {
     const loginCookies = request.cookies.logged_in;
     let data = {};
     let endpoint =
-      "https://maps.googleapis.com/maps/api/place/textsearch/json?query=bars+near+me&key=" +
+      "https://maps.googleapis.com/maps/api/place/textsearch/json?query=bars&locationbias=ipbias&key=" +
       process.env.places_api_key;
 
     db.happyhourhangouts.checkIfLoggedIn(
