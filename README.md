@@ -30,9 +30,9 @@
 
 ## Motivations
     Develop familiarity with the usage of APIs
-    Become more comfortable with writing database queries
-    To be more proficient with hashing and cookie usage
     To learn more about AJAX and its use cases
+    To be more proficient with hashing and cookie usage
+    Become more comfortable with writing database queries
 
 ## Unsolved problems
     Make app purpose easier to understand
@@ -42,6 +42,7 @@
 
 ## Credits
     Kev and Nat for helping me with implementation of Google API
+    Akira for pointing out that API can only be used from server-side ;)
     
 
 
