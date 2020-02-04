@@ -13,15 +13,25 @@
 
 // let crd;
 
-//   function success(pos) {
-//      crd = pos.coords;
+function success(pos) {
+  crd = pos.coords;
+  latitude = crd.latitude;
+  longitude = crd.longitude;
 
-//     console.log("Your current position is:");
-//     console.log(`Latitude : ${crd.latitude}`);
-//     console.log(`Longitude: ${crd.longitude}`);
-//     console.log(`More or less ${crd.accuracy} meters.`);
-//   }
-//   window.navigator.geolocation.getCurrentPosition(success);
+  nearbyLink.href =
+    nearbyLink.href + "?lat=" + latitude + "&" + "long=" + longitude;
+  console.log(nearbyLink.href);
+
+  window.location.href = nearbyLink.href;
+}
+
+const nearbyLink = document.querySelector("#nearby");
+nearbyLink.addEventListener("click", () => {
+  let latitude = "";
+  let longitude = "";
+  event.preventDefault();
+  window.navigator.geolocation.getCurrentPosition(success);
+});
 
 //   console.log(crd)
 

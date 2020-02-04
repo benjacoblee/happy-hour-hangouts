@@ -5,7 +5,7 @@ class BarsNearby extends React.Component {
   render() {
     const bars = this.props.bars;
     const loggedIn = this.props.loggedIn;
-    console.log(bars);
+    // console.log(bars);
     const barElements = bars.map(bar => {
       let openNow;
       let priceMessage;
@@ -23,7 +23,7 @@ class BarsNearby extends React.Component {
       let googleMapPath =
         "https://www.google.com/maps/search/?api=1&query=" +
         encodeURI(bar.formatted_address);
-      console.log(bar.formatted_address);
+      // console.log(bar.formatted_address);
       return (
         <div>
           <a className="bars-nearby-link" href={googleMapPath} target="_blank">

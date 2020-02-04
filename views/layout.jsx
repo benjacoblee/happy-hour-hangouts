@@ -103,7 +103,7 @@ class Layout extends React.Component {
                   </a>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="/bars/nearby">
+                  <a id="nearby" className="nav-link" href="/bars/nearby">
                     Bars nearby
                   </a>
                 </li>
@@ -174,6 +174,7 @@ class Layout extends React.Component {
             integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
             crossOrigin="anonymous"
           ></script>
+          <script src="/nearby.js"></script>
         </body>
       </html>
     );
