@@ -20,7 +20,6 @@ class BarsNearby extends React.Component {
       } else {
         priceMessage = `Price level: ${priceLevel}`;
       }
-      console.log(bar.opening_hours.open_now);
       let googleMapPath =
         "https://www.google.com/maps/search/?api=1&query=" +
         encodeURI(bar.formatted_address);
