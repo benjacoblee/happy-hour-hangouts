@@ -5,6 +5,8 @@ Cloudinary.config({
   api_secret: process.env.api_secret
 });
 
+const axios = require("axios");
+
 module.exports = db => {
   /**
    * ===========================================
@@ -22,9 +24,29 @@ module.exports = db => {
       (err, loggedIn) => {
         let data = {};
         if (loggedIn) {
+          response.setHeader("Access-Control-Allow-Origin", "*");
+          response.setHeader("Access-Control-Allow-Credentials", "true");
+          response.setHeader(
+            "Access-Control-Allow-Methods",
+            "GET,HEAD,OPTIONS,POST,PUT"
+          );
+          response.setHeader(
+            "Access-Control-Allow-Headers",
+            "Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers"
+          );
           data.loggedIn = true;
           response.render("index", data);
         } else {
+          response.setHeader("Access-Control-Allow-Origin", "*");
+          response.setHeader("Access-Control-Allow-Credentials", "true");
+          response.setHeader(
+            "Access-Control-Allow-Methods",
+            "GET,HEAD,OPTIONS,POST,PUT"
+          );
+          response.setHeader(
+            "Access-Control-Allow-Headers",
+            "Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers"
+          );
           data.loggedIn = false;
           response.render("index", data);
         }
@@ -89,7 +111,7 @@ module.exports = db => {
     const password = request.body.password;
 
     db.happyhourhangouts.loginUser(username, password, (err, loginResult) => {
-      if (err) console.log(err);
+      if (err) console.log(err, "LALALA");
       else {
         if (loginResult !== null) {
           response.cookie("user_ID", loginResult.rows[0].id);
@@ -517,7 +539,35 @@ module.exports = db => {
     });
   };
 
-  const getBarsNearby = (request, response) => {};
+  const getBarsNearby = (request, response) => {
+    const userID = request.cookies.user_ID;
+    const loginCookies = request.cookies.logged_in;
+    let data = {};
+    let endpoint =
+      "https://maps.googleapis.com/maps/api/place/textsearch/json?query=bars+near+me&key=" +
+      process.env.places_api_key;
+
+    db.happyhourhangouts.checkIfLoggedIn(
+      userID,
+      loginCookies,
+      (err, loggedIn) => {
+        if (loggedIn) {
+          data.loggedIn = loggedIn;
+        }
+      }
+    );
+    axios
+      .get(endpoint)
+      .then(barsResponse => {
+        console.log(barsResponse.data.results[0].name, "LASLD");
+        data.bars = barsResponse.data.results;
+        response.render("barsnearby", data);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+      
+  };
 
   /**
    * ===========================================

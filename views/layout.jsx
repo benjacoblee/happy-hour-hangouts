@@ -102,6 +102,11 @@ class Layout extends React.Component {
                     Bars
                   </a>
                 </li>
+                <li className="nav-item">
+                  <a className="nav-link" href="/bars/nearby">
+                    Bars nearby
+                  </a>
+                </li>
                 {favorites}
                 <li className="nav-item dropdown">
                   <a

@@ -39,12 +39,8 @@
 //   "https://maps.googleapis.com/maps/api/place/textsearch/json?query=bars+near+me&key=" +
 //   "AIzaSyBqS4JvzTk41aPzk_vA2wOgie7Q0KuaAUE";
 
-// `https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=-33.8670522,151.1957362&radius=1500&type=restaurant&keyword=cruise&key=
-//   AIzaSyBqS4JvzTk41aPzk_vA2wOgie7Q0KuaAUE`
-
-// https: xhr.open("GET", endpoint);
+// xhr.open("GET", endpoint);
 // xhr.send();
+
 // const bookmark = document.querySelector(".fa-bookmark");
 // bookmark.addEventListener("click", responseHandler);
-
-console.log(placesSrc);
