@@ -41,10 +41,15 @@
     In the future, should find a better way to handle user experience (e.g. no indicator for upload progress, no immediate feedback after clicking on nearby bars)
     On mobile, website seems to refresh with new lat/long. Doesn't seem to be the case with desktop
 
+## Wireframing
+https://github.com/benjacoblee/happy-hour-hangouts/blob/master/images/wireframe.jpg
+https://github.com/benjacoblee/happy-hour-hangouts/blob/master/images/homepage.png
+https://github.com/benjacoblee/happy-hour-hangouts/blob/master/images/form.png
+https://github.com/benjacoblee/happy-hour-hangouts/blob/master/images/entry.png
+
+## ERD
+https://github.com/benjacoblee/happy-hour-hangouts/blob/master/images/erd.jpg
+
 ## Credits
     Kev and Nat for helping me with implementation of Google API
     Akira for pointing out that API can only be used from server-side ;)
-    
-
-
-
