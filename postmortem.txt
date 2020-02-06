@@ -26,6 +26,16 @@ What in my code and program design in the project went well? Is there anything I
 
 For each, please include code examples.
 
+axios
+      .get(endpoint)
+      .then(barsResponse => {
+        data.bars = barsResponse.data.results;
+        response.render("barsnearby", data);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+
 What habits did I use during this unit that helped me?
 - Obsessing over problems
 
