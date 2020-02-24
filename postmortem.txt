@@ -6,7 +6,7 @@ What in my process and approach to this project would I do differently next time
 
 - Was dead set in using API. Entire project idea changed (due to not knowing how to use Zomato API). Could've prepared better by reading API documentation.
 
-- Commited more. 
+- Committed more. 
 
 - Not change file names/database name/project name halfway through project (GITHUB DOESN'T KNOW)
 

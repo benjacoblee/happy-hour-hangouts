@@ -12,7 +12,7 @@ class Home extends React.Component {
             <div className="col-12 px-0">
               <img
                 className="main-img"
-                src="https://media.timeout.com/images/103490251/image.jpg"
+                src="https://www.friendslake.com/wp-content/uploads/2014/09/bigstock-Glass-Of-Beer-51696589.jpg"
               />
             </div>
           </div>
@@ -33,9 +33,7 @@ class Home extends React.Component {
               <div className=" col-lg-4 text-center mb-5">
                 <i className="fas fa-search fa-5x mb-3"></i>
                 <h4 className="feature-title">Search.</h4>
-                <p className="site-desc">
-                  Find bars by name or tags!
-                </p>
+                <p className="site-desc">Find bars by name or tags!</p>
               </div>
             </div>
           </div>
