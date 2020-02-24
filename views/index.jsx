@@ -11,7 +11,7 @@ class Home extends React.Component {
           <div className="row">
             <div className="col-12 px-0">
               <img
-                className="main-img"
+                className="main-img mb-5"
                 src="https://www.friendslake.com/wp-content/uploads/2014/09/bigstock-Glass-Of-Beer-51696589.jpg"
               />
             </div>
