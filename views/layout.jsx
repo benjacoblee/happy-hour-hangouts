@@ -144,6 +144,7 @@ class Layout extends React.Component {
                   placeholder="Search"
                   name="search"
                   aria-label="Search"
+                  required
                 />
                 <button
                   className="btn btn-search my-2 my-sm-0 mr-2"

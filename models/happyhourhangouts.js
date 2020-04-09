@@ -2,11 +2,9 @@ const sha256 = require("js-sha256");
 const rand = require("csprng");
 const moment = require("moment-timezone");
 
-moment()
-  .tz("Asia/Singapore")
-  .format();
+moment().tz("Asia/Singapore").format();
 
-module.exports = dbPoolInstance => {
+module.exports = (dbPoolInstance) => {
   const registerUser = (username, password, callback) => {
     const SALT = rand(160, 36);
     password = sha256(SALT + password);
@@ -66,7 +64,7 @@ module.exports = dbPoolInstance => {
     });
   };
 
-  const showAllBars = callback => {
+  const showAllBars = (callback) => {
     const query = "SELECT * from bars;";
     dbPoolInstance.query(query, (err, result) => {
       if (err) callback(err, null);
@@ -167,21 +165,20 @@ module.exports = dbPoolInstance => {
   };
 
   const searchDB = (searchQuery, callback) => {
-    const matches = [];
+    // const matches = [];
     let matchFound;
     const query = "SELECT * from bars";
     dbPoolInstance.query(query, (err, result) => {
-      for (let i = 0; i < result.rows.length; i++) {
+      const matches = result.rows.filter((bar) => {
         if (
-          result.rows[i].name
-            .toLowerCase()
-            .includes(searchQuery.toLowerCase()) ||
-          result.rows[i].tags.toLowerCase().includes(searchQuery.toLowerCase())
+          bar.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          bar.tags.toLowerCase().includes(searchQuery.toLowerCase())
         ) {
           matchFound = true;
-          matches.push(result.rows[i]);
+          return bar;
         }
-      }
+      });
+
       if (matchFound) {
         callback(err, matches);
       } else {
