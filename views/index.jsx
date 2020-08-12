@@ -10,10 +10,7 @@ class Home extends React.Component {
         <div className="container-fluid">
           <div className="row">
             <div className="col-12 px-0">
-              <img
-                className="main-img mb-5"
-                src="https://www.friendslake.com/wp-content/uploads/2014/09/bigstock-Glass-Of-Beer-51696589.jpg"
-              />
+              <img className="main-img mb-5" src="/beer-07.jpg" />
             </div>
           </div>
           <div className="container-fluid">
